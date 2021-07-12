@@ -41,7 +41,7 @@ public class Account: Codable {
     
     //Statistical attributes
     /// When the account was created.
-    public let createdAt: Date
+    public let createdAt: String
     /// How many statuses are attached to this account.
     public let statusesCount: Int
     /// The reported followers of this profile.
@@ -65,7 +65,7 @@ public class Account: Codable {
     public let muteExpiresAt: Date?
     /// When the most recent status was posted.
     /// In Some case this will be null
-    public let lastStatusAt: Date?
+    public let lastStatusAt: String?
     
     private enum CodingKeys: String, CodingKey {
         case id
