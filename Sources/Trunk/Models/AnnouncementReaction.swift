@@ -19,9 +19,9 @@ public class AnnouncementReaction: Codable {
     
     // Custom emoji attributes
     /// A link to the custom emoji.
-    public let url: URL
+    public let url: URL?
     /// A link to a non-animated version of the custom emoji.
-    public let staticURL: URL
+    public let staticURL: URL?
     
     private enum CodingKeys: String, CodingKey {
         case name
