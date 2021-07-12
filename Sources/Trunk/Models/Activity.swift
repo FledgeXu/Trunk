@@ -11,7 +11,7 @@ import Foundation
 public class Activity: Codable {
     // Attributes
     /// Midnight at the first day of the week.
-    public let week: Int64
+    public let week: String
     /// Statuses created since the week began.
     public let statuses: String
     /// User logins since the week began.
