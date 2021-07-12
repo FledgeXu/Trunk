@@ -151,8 +151,6 @@ final class AttachmentTest: XCTestCase {
     let type = Attachment.self
     
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
         let testJosnImage = testJosnImage.data(using: .utf8)!
         let resultImage = try! JSONDecoder().decode(type, from: testJosnImage)
