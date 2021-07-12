@@ -27,7 +27,7 @@ public class Attachment: Codable {
     /// A shorter URL for the attachment.
     public let textURL: URL?
     /// Metadata returned by Paperclip.
-    public let meta: [String: Data]?
+    public let meta: AttachmentMetaType?
     /// Alternate text that describes what is in the media attachment, to be used for the visually impaired or when media attachments do not load.
     public let description: String?
     /// A hash computed by the BlurHash algorithm, for generating colorful preview thumbnails when media has not been downloaded yet.
@@ -57,5 +57,46 @@ public class Attachment: Codable {
         case video
         /// Audio track
         case audio
+    }
+    public enum AttachmentMetaType: Codable {
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            if let meta = try? container.decode(AttachmentVideoMeta.self){
+                self = .video(meta)
+                return
+            }
+            if let meta = try? container.decode(AttachmentAudioMeta.self){
+                self = .audio(meta)
+                return
+            }
+            if let meta = try? container.decode(AttachmentGIFVMeta.self){
+                self = .gifv(meta)
+                return
+            }
+            if let meta = try? container.decode(AttachmentImageMeta.self){
+                self = .image(meta)
+                return
+            }
+            throw DecodingError.typeMismatch(AttachmentMetaType.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for AttachmentMetaType"))
+        }
+        
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            switch self {
+            case .video(let meta):
+                try container.encode(meta)
+            case .gifv(let meta):
+                try container.encode(meta)
+            case .image(let meta):
+                try container.encode(meta)
+            case .audio(let meta):
+                try container.encode(meta)
+            }
+        }
+        
+        case audio(AttachmentAudioMeta)
+        case gifv(AttachmentGIFVMeta)
+        case image(AttachmentImageMeta)
+        case video(AttachmentVideoMeta)
     }
 }
