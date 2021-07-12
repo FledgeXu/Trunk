@@ -53,6 +53,5 @@ final class AccountTests: XCTestCase {
         // Asserts
         XCTAssertEqual(result.username, "T_Bouhafs")
         XCTAssertEqual(result.fields?[0].name, "Twitch")
-
     }
 }

@@ -14,7 +14,7 @@ public class Status: Codable {
     /// URI of the status used for federation.
     public let uri: String
     /// The date when this status was created.
-    public let createdAt: Date
+    public let createdAt: String
     /// he account that authored this status.
     public let account: Account
     /// HTML-encoded status content.
