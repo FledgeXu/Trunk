@@ -43,6 +43,7 @@ public class AttachmentVideoMeta: Codable {
     public let audioChannels: String
     public let original: MetaOriginal
     public let small: MetaSmall
+    
     private enum CodingKeys: String, CodingKey {
         case length
         case duration
