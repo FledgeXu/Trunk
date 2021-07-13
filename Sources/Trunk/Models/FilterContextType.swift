@@ -16,4 +16,6 @@ public enum FilterContextType: String, Codable {
     case `public`
     ///  expanded thread of a detailed status
     case thread
+    /// whole account
+    case account
 }
