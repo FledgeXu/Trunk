@@ -15,11 +15,11 @@ public class FeaturedTag: Codable {
     /// The name of the hashtag being featured.
     public let name: String
     ///  A link to all statuses by a user that contain this hashtag.
-    public let url: URL
+    public let url: URL?
     /// The number of authored statuses containing this hashtag.
     public let statusesCount: Int
     /// The timestamp of the last authored status containing this hashtag.
-    public let lastStatusAt: Date?
+    public let lastStatusAt: String?
     private enum CodingKeys: String, CodingKey {
         case id
         case name
