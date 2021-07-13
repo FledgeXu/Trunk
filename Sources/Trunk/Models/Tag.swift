@@ -1,9 +1,8 @@
 //
 //  Tag.swift
-//  MastodonKit
 //
-//  Created by Ornithologist Coder on 4/9/17.
-//  Copyright © 2017 MastodonKit. All rights reserved.
+//
+//  Created by Fledge Shiu on 2021/4/21.
 //
 
 import Foundation
