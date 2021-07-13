@@ -9,6 +9,6 @@ import Foundation
 
 public enum Payload<T: Encodable> {
     case parameters(T)
-    case media([String: Any]?)
+    case media([String: Data])
     case empy
 }

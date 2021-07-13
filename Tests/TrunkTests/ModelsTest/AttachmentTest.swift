@@ -12,32 +12,29 @@ import Foundation
 final class AttachmentTest: XCTestCase {
     let testJosnImage = """
         {
-           "id":"22348641",
+           "id":"106573029724075954",
            "type":"image",
-           "url":"https://files.mastodon.social/media_attachments/files/022/348/641/original/e96382f26c72a29c.jpeg",
-           "preview_url":"https://files.mastodon.social/media_attachments/files/022/348/641/small/e96382f26c72a29c.jpeg",
+           "url":null,
+           "preview_url":"https://files.mastodon.online/media_attachments/files/106/573/029/724/075/954/small/4eb2e72ccd2c0b62.jpeg",
            "remote_url":null,
-           "text_url":"https://mastodon.social/media/4Zj6ewxzzzDi0g8JnZQ",
+           "preview_remote_url":null,
+           "text_url":"https://mastodon.online/media/6uNOf64XCZAEP7VqSp0",
            "meta":{
-              "focus":{
-                 "x":-0.42,
-                 "y":0.69
-              },
               "original":{
-                 "width":640,
-                 "height":480,
-                 "size":"640x480",
-                 "aspect":1.3333333333333333
+                 "width":260,
+                 "height":551,
+                 "size":"260x551",
+                 "aspect":0.47186932849364793
               },
               "small":{
-                 "width":461,
-                 "height":346,
-                 "size":"461x346",
-                 "aspect":1.3323699421965318
+                 "width":260,
+                 "height":551,
+                 "size":"260x551",
+                 "aspect":0.47186932849364793
               }
            },
-           "description":"test uploaded via api, but updated",
-           "blurhash":"UFBWY:8_0Jxv4mx]t8t64.%M-:IUWGWAt6M}"
+           "description":null,
+           "blurhash":"U6S$ov~q-;9FxuM{Rjoft7xut7t7xuxut7of"
         }
         """
     let testJosnVideo = """
@@ -167,10 +164,10 @@ final class AttachmentTest: XCTestCase {
         let testJosnUnkonw = testJosnUnkonw.data(using: .utf8)!
         let resultUnkow = try! JSONDecoder().decode(type, from: testJosnUnkonw)
         // Asserts
-        XCTAssertEqual(resultImage.id, "22348641")
+        XCTAssertEqual(resultImage.id, "106573029724075954")
         switch resultImage.meta {
         case .image(let meta):
-            XCTAssertEqual(meta.small?.size, "461x346")
+            XCTAssertEqual(meta.small?.size, "260x551")
         default:
             XCTFail()
         }

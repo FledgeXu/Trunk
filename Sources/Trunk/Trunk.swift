@@ -20,30 +20,30 @@ public struct Trunk {
             return
         }
         var dataRequest: DataRequest
-        switch request.method {
+        switch request.method.parameters {
+        case .parameters(let parameters):
+            dataRequest = AF.request(url, method: request.method.type, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default, headers: [.authorization(bearerToken: accessToken)])
+        case .media(let parameters):
+            dataRequest = AF.upload(multipartFormData: { multipartFormData in
+                parameters.forEach { (key: String, value: Data) in
+                    multipartFormData.append(value, withName: key, fileName: key)
+                }
+            }, to: url, headers: [.authorization(bearerToken: accessToken)])
         default:
-            switch request.method.parameters {
-            case .parameters(let parameters):
-                dataRequest = AF.request(url, method: request.method.type, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default)
-            case .media(let parameters):
-                dataRequest = AF.request(url, method: request.method.type, parameters: parameters)
-            default:
-                dataRequest = AF.request(url, method: request.method.type)
+            dataRequest = AF.request(url, method: request.method.type, headers: [.authorization(bearerToken: accessToken)])
+        }
+        dataRequest.responseData(queue: .global()) { response in
+            switch response.result {
+            case .success(let data):
+                let str = String(decoding: data, as: UTF8.self)
+                print(str)
+                let jsonData = str.data(using: .utf8)!
+                let model = try! JSONDecoder().decode(Model.self, from: jsonData)
+                debugPrint(model)
+            case let .failure(error):
+                print(error)
             }
         }
-        //        dataRequest.responseData(queue: .global()) { response in
-        //            switch response.result {
-        //            case .success(let data):
-        //                let str = String(decoding: data, as: UTF8.self)
-        //                print(str)
-        //                guard let model  = try? Model.decode(data: data) else {
-        //                    return
-        //                }
-        //                debugPrint(model)
-        //            case let .failure(error):
-        //                print(error)
-        //            }
-        //        }
         //        dataRequest.responseJSON(queue: queue) { response in
         //            switch response.result {
         //            case .success(let data):
@@ -52,13 +52,13 @@ public struct Trunk {
         //                print(error)
         //            }
         //        }
-        dataRequest.responseDecodable(of: Model.self, queue: queue) { response in
-            switch response.result {
-            case .success(let data):
-                debugPrint(data)
-            case let .failure(error):
-                print(error)
-            }
-        }
+        //                dataRequest.responseDecodable(of: Model.self, queue: queue) { response in
+        //                    switch response.result {
+        //                    case .success(let data):
+        //                        debugPrint(data)
+        //                    case let .failure(error):
+        //                        print(error)
+        //                    }
+        //                }
     }
 }

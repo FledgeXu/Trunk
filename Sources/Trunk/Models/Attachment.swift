@@ -15,9 +15,9 @@ public class Attachment: Codable {
     /// The type of the attachment.
     public let type: AttachmentType
     /// The location of the original full-size attachment.
-    public let url: URL
+    public let url: URL?
     /// The location of a scaled-down preview of the attachment.
-    public let previewURL: URL
+    public let previewURL: URL?
     
     // Optional attributes
     /// The location of the full-size original attachment on the remote website.
