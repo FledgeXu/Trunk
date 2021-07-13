@@ -11,7 +11,7 @@ import Foundation
 public class History: Codable {
     // Required attributes
     /// UNIX timestamp on midnight of the given day.
-    public let day: Int64
+    public let day: String
     /// the counted usage of the tag within that day.
     public let uses: String
     /// the total of accounts using the tag within that day.
