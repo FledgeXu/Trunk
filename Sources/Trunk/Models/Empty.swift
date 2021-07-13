@@ -1,9 +1,8 @@
 //
-//  Empty.swift
-//  MastodonKit
+//  Emojis.swift
 //
-//  Created by Ornithologist Coder on 6/7/17.
-//  Copyright © 2017 MastodonKit. All rights reserved.
+//
+//  Created by Fledge Shiu on 2021/4/21.
 //
 
 import Foundation
