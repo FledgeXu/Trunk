@@ -19,7 +19,7 @@ public class IdentityProof: Codable {
     ///  link to a statement of identity proof, hosted by the identity provider.
     public let proofURL: URL
     /// When the identity proof was last updated.
-    public let updatedAt: Date
+    public let updatedAt: String
     private enum CodingKeys: String, CodingKey {
         case provider
         case providerUsername = "provider_username"
