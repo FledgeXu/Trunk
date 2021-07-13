@@ -10,7 +10,7 @@ import Foundation
 /// Represents a subscription to the push streaming server.
 public class PushSubscription: Codable {
     /// The id of the push subscription in the database.
-    public let id: String
+    public let id: Int
     /// Where push alerts will be sent to.
     public let endpoint: URL
     /// The streaming server's VAPID key.
