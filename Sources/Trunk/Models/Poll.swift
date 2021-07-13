@@ -13,7 +13,7 @@ public class Poll: Codable {
     /// The ID of the poll in the database.
     public let id: String
     /// When the poll ends.
-    public let expiresAt: Date?
+    public let expiresAt: String?
     /// Is the poll currently expired?
     public let expired: Bool
     /// Does the poll allow multiple-choice answers?
