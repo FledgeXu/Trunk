@@ -15,7 +15,7 @@ public class Notification: Codable {
     /// The type of event that resulted in the notification.
     public let type: NotificationType
     /// The timestamp of the notification.
-    public let createdAt: Date
+    public let createdAt: String
     /// The account that performed the action that generated the notification.
     public let account: Account
     
