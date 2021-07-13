@@ -42,6 +42,8 @@ public class Instance: Codable {
     public let thumbnail: URL?
     /// A user that can be contacted, as an alternative to email
     public let contactAccount: Account?
+    /// Instance rules
+    public let rules: [RuleType]?
     
     public class URLsType: Codable {
         public let streamingApi: String
@@ -66,6 +68,13 @@ public class Instance: Codable {
         }
     }
     
+    public class RuleType: Codable {
+        /// Rule ID
+        public let id: String
+        /// Rule Content
+        public let text: String
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case uri
         case title
@@ -81,5 +90,6 @@ public class Instance: Codable {
         case stats
         case thumbnail
         case contactAccount = "contact_account"
+        case rules
     }
 }
