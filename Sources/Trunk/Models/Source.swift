@@ -19,7 +19,7 @@ public class Source: Codable {
     /// The default post privacy to be used for new statuses.
     public let privacy: String?
     /// Whether new statuses should be marked sensitive by default.
-    public let sensitive: String?
+    public let sensitive: Bool?
     /// The default posting language for new statuses.
     public let language: String?
     /// The number of pending follow requests.

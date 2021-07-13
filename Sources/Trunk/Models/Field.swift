@@ -15,9 +15,9 @@ public class Field: Codable {
     /// The value associated with the name key.
     public let value: String
     /// Timestamp of when the server verified a URL value for a rel="me” link.
-    public let verifiedAt: Date?
+    public let verifiedAt: String?
     
-    public init(name: String, value: String, verifiedAt: Date? = nil) {
+    public init(name: String, value: String, verifiedAt: String? = nil) {
         self.name = name
         self.value = value
         self.verifiedAt = verifiedAt
