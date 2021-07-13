@@ -13,8 +13,6 @@ public class Results: Codable {
     public let accounts: [Account]
     /// Statuses which match the given query
     public let statuses: [Status]
-    private enum CodingKeys: String, CodingKey {
-        case accounts
-        case statuses
-    }
+    // Hashtags which match the given query
+    public let hashtags: [Tag]
 }
