@@ -11,7 +11,7 @@ import Alamofire
 public struct AppsCreateApplicationParameters: Encodable {
     let clientName: String
     let redirectUris: String
-    let scopes: [OAuthScopes]?
+    let scopes: String?
     let website: String?
     
     private enum CodingKeys: String, CodingKey {
@@ -23,7 +23,7 @@ public struct AppsCreateApplicationParameters: Encodable {
     public init(clientName: String, redirectUris: String = "urn:ietf:wg:oauth:2.0:oob", scopes: [OAuthScopes]? = nil, website: String? = nil) {
         self.clientName = clientName
         self.redirectUris = redirectUris
-        self.scopes = scopes
+        self.scopes = scopes?.toString()
         self.website = website
     }
 }

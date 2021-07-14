@@ -11,7 +11,7 @@ public struct Trunk {
         self.accessToken = accessToken
         self.queue = queue
     }
-    public func run<Model: Codable, Parameters: Encodable>(request: Request<Model, Parameters>) {
+    public func run<Model: Codable, Parameters: Encodable>(request: Request<Model, Parameters>, completion: @escaping (Model) -> Void) {
         guard
             let components = URLComponents(baseURL: instanceURL, request: request),
             let url = components.url
@@ -45,7 +45,8 @@ public struct Trunk {
                     print(error.error)
                     return
                 }
-                debugPrint(model)
+//                debugPrint(model)
+                completion(model)
             case let .failure(error):
                 print(error)
             }

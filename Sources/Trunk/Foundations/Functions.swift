@@ -27,3 +27,12 @@ extension Date {
 extension String {
     var iso8601withFractionalSeconds: Date? { return Formatter.iso8601withFractionalSeconds.date(from: self) }
 }
+
+// For some reasons, Mastodon doesn't support parameters like `foo[]=1&foo[]2` or `foo=1&foo=2` in OAuthScopes
+extension Array where Element == OAuthScopes {
+    func toString() -> String {
+        return self.reduce("") { result, element in
+            return "\(result) \(element)"
+        }
+    }
+}
