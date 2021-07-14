@@ -34,8 +34,29 @@ public struct OAuthObtainTokenParameters: Encodable {
     }
 }
 
+public struct OAuthRevokeTokenParameters: Encodable {
+    let clientId: String
+    let clientSecret: String
+    let token: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case clientId = "client_id"
+        case clientSecret = "client_secret"
+        case token
+    }
+    public init(clientId: String, clientSecret: String, token: String) {
+        self.clientId = clientId
+        self.clientSecret = clientSecret
+        self.token = token
+    }
+}
+
 public enum OAuthEndpoint {
     public static func obtainToken(parameters: OAuthObtainTokenParameters) -> Request<Token, OAuthObtainTokenParameters> {
         return Request(path: "/oauth/token", method: .POST(.PARAMETERS(parameters)))
+    }
+    
+    public static func revokeToken(parameters: OAuthRevokeTokenParameters) -> Request<Empty, OAuthRevokeTokenParameters> {
+        return Request(path: "/oauth/revoke", method: .POST(.PARAMETERS(parameters)))
     }
 }

@@ -38,15 +38,16 @@ public struct Trunk {
                 let str = String(decoding: data, as: UTF8.self)
 //                print(str)
                 let jsonData = str.data(using: .utf8)!
-                guard let model = try? JSONDecoder().decode(Model.self, from: jsonData) else {
-                    guard let error = try? JSONDecoder().decode(Error.self, from: jsonData) else {
+                guard let error = try? JSONDecoder().decode(Error.self, from: jsonData) else {
+                    guard let model = try? JSONDecoder().decode(Model.self, from: jsonData) else {
+                        debugPrint(str)
                         return
                     }
-                    print(error.error)
+                    completion(model)
                     return
                 }
+                print(error.error)
 //                debugPrint(model)
-                completion(model)
             case let .failure(error):
                 print(error)
             }
