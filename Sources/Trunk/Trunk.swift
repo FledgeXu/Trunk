@@ -21,9 +21,9 @@ public struct Trunk {
         }
         var dataRequest: DataRequest
         switch request.method.parameters {
-        case .parameters(let parameters):
+        case .PARAMETERS(let parameters):
             dataRequest = AF.request(url, method: request.method.type, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default, headers: [.authorization(bearerToken: accessToken)])
-        case .media(let parameters):
+        case .MEDIA(let parameters):
             dataRequest = AF.upload(multipartFormData: { multipartFormData in
                 parameters.forEach { (key: String, value: Data) in
                     multipartFormData.append(value, withName: key, fileName: key)

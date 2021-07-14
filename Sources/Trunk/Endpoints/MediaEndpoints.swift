@@ -27,6 +27,6 @@ public enum MediaEndpoints {
                       "thumbnail": parameters.thumbnail,
                       "description": parameters.description?.data(using: .utf8),
                       "focus": parameters.focus?.data(using: .utf8)].compactMapValues { $0 }
-        return Request(path: "/api/v2/media", method: .POST(.media(parts)))
+        return Request(path: "/api/v2/media", method: .POST(.MEDIA(parts)))
     }
 }

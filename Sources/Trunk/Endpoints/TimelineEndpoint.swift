@@ -38,6 +38,6 @@ public struct TimelinePublicParameters: Encodable {
 
 public enum TimelineEndpoint {
     public static func `public`(parameters: TimelinePublicParameters) -> Request<[Status], TimelinePublicParameters> {
-        return Request(path: "/api/v1/timelines/public", method: .GET(.parameters(parameters)))
+        return Request(path: "/api/v1/timelines/public", method: .GET(.PARAMETERS(parameters)))
     }
 }

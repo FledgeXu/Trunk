@@ -30,6 +30,10 @@ public struct AppsCreateApplicationParameters: Encodable {
 
 public enum AppsEndpoint {
     public static func createApplication(parameters: AppsCreateApplicationParameters) -> Request<Application, AppsCreateApplicationParameters> {
-        return Request(path: "/api/v1/apps", method: .POST(.parameters(parameters)))
+        return Request(path: "/api/v1/apps", method: .POST(.PARAMETERS(parameters)))
+    }
+    
+    public static func verifyCredentials() -> Request<Application, EmptyEndpointParameters> {
+        return Request(path: "/api/v1/apps/verify_credentials", method: .GET(.EMPTY))
     }
 }

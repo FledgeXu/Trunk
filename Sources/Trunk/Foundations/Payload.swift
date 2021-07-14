@@ -8,7 +8,7 @@
 import Foundation
 
 public enum Payload<T: Encodable> {
-    case parameters(T)
-    case media([String: Data])
-    case empy
+    case PARAMETERS(T)
+    case MEDIA([String: Data])
+    case EMPTY
 }

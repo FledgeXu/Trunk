@@ -11,7 +11,7 @@ public struct Request<Model: Codable, Parameters: Encodable>{
     let path: String
     let method: Method<Parameters>
 
-    init(path: String, method: Method<Parameters> = .GET(.empy)) {
+    init(path: String, method: Method<Parameters> = .GET(.EMPTY)) {
         self.path = path
         self.method = method
     }

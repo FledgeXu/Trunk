@@ -33,6 +33,6 @@ public struct AccountsFiltersParameters: Encodable {
 
 public enum AccountsEndpoint {
     public static func filters(parameters: AccountsFiltersParameters) -> Request<Filter, AccountsFiltersParameters> {
-        return Request(path: "/api/v1/filters", method: .POST(.parameters(parameters)))
+        return Request(path: "/api/v1/filters", method: .POST(.PARAMETERS(parameters)))
     }
 }
