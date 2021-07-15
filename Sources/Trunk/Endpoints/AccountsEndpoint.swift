@@ -83,4 +83,14 @@ public enum AccountsEndpoint {
         ]
         return Request(path: "/api/v1/accounts/\(id)/followers", method: .GET(.PARAMETERS(parameters)))
     }
+    
+    public static func getFollowing(id: Int, maxId: String? = nil, sinceId: String? = nil, limit: Int? = nil) -> Request<[Account]> {
+        let toLimitBounds = between(1, and: 80, default: 40)
+        let parameters = [
+            Parameter(key: "max_id", value: maxId),
+            Parameter(key: "since_id", value: sinceId),
+            Parameter(key: "limit", value: limit.map(toLimitBounds).flatMap(toOptionalString)),
+        ]
+        return Request(path: "/api/v1/accounts/\(id)/following", method: .GET(.PARAMETERS(parameters)))
+    }
 }
