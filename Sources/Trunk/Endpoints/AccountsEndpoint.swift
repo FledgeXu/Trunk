@@ -93,4 +93,8 @@ public enum AccountsEndpoint {
         ]
         return Request(path: "/api/v1/accounts/\(id)/following", method: .GET(.PARAMETERS(parameters)))
     }
+    
+    public static func getFeaturedTags(id: Int) -> Request<[FeaturedTag]> {
+        return Request(path: "/api/v1/accounts/\(id)/featured_tags")
+    }
 }
