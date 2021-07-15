@@ -3,70 +3,61 @@ import Alamofire
 
 public struct Trunk {
     let instanceURL: String
+    let session: URLSession
     public var accessToken: String
-    let queue: DispatchQueue
     
-    public init(instanceURL: String, accessToken: String = "", queue: DispatchQueue = .global()) {
+    public init(instanceURL: String, accessToken: String = "", session: URLSession = .shared) {
         self.instanceURL = instanceURL
         self.accessToken = accessToken
-        self.queue = queue
+        self.session = session
     }
-    public func run<Model: Codable, Parameters: Encodable>(request: Request<Model, Parameters>, completion: @escaping (Model) -> Void) {
+    public func run<Model: Codable>(request: Request<Model>, completion: @escaping (Model) -> Void) {
         guard
             let components = URLComponents(baseURL: instanceURL, request: request),
             let url = components.url
         else {
-            //            completion(.failure(MastodonError.URLError))
+            //                completion(.failure(ClientError.malformedURL))
             return
         }
-        var dataRequest: DataRequest
-        switch request.method.parameters {
-        case .PARAMETERS(let parameters):
-            dataRequest = AF.request(url, method: request.method.type, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default, headers: [.authorization(bearerToken: accessToken)])
-        case .MEDIA(let parameters):
-            dataRequest = AF.upload(multipartFormData: { multipartFormData in
-                parameters.forEach { (key: String, value: Data) in
-                    multipartFormData.append(value, withName: key, fileName: key)
-                }
-            }, to: url, headers: [.authorization(bearerToken: accessToken)])
-        default:
-            dataRequest = AF.request(url, method: request.method.type, headers: [.authorization(bearerToken: accessToken)])
-        }
-        dataRequest.responseData(queue: .global()) { response in
-            switch response.result {
-            case .success(let data):
-                let str = String(decoding: data, as: UTF8.self)
-//                print(str)
-                let jsonData = str.data(using: .utf8)!
-                guard let error = try? JSONDecoder().decode(Error.self, from: jsonData) else {
-                    guard let model = try? JSONDecoder().decode(Model.self, from: jsonData) else {
-                        debugPrint(str)
-                        return
-                    }
-                    completion(model)
-                    return
-                }
-                print(error.error)
-//                debugPrint(model)
-            case let .failure(error):
-                print(error)
+        let urlReuqest = URLRequest(url: url, request: request, accessToken: accessToken)
+        let task = session.dataTask(with: urlReuqest) { data, response, error in
+            if error != nil {
+                //                completion(.failure(error))
+                return
             }
+            
+            guard let data = data else {
+                //                completion(.failure(ClientError.malformedJSON))
+                return
+            }
+            
+            guard
+                let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode == 200
+            else {
+                //                let mastodonError = try? MastodonError.decode(data: data)
+                //                let error: ClientError = mastodonError.map { .mastodonError($0.description) } ?? .genericError
+                //                completion(.failure(error))
+                let httpResponse = response as? HTTPURLResponse
+                print(httpResponse?.statusCode)
+                let str = String(data: data, encoding: .utf8)
+                print(str)
+                return
+            }
+            
+            //            guard let model = try? Model.decode(data: data) else {
+            //                completion(.failure(ClientError.invalidModel))
+            //                return
+            //            }
+            guard  let result = try? JSONDecoder().decode(Model.self, from: data) else {
+                return
+            }
+            completion(result)
+            //            let str = String(data: data, encoding: .utf8)
+            //            print(str)
+            
+            //            completion(.success(model, httpResponse.pagination))
         }
-        //        dataRequest.responseJSON(queue: queue) { response in
-        //            switch response.result {
-        //            case .success(let data):
-        //                debugPrint(data)
-        //            case let .failure(error):
-        //                print(error)
-        //            }
-        //        }
-        //                dataRequest.responseDecodable(of: Model.self, queue: queue) { response in
-        //                    switch response.result {
-        //                    case .success(let data):
-        //                        debugPrint(data)
-        //                    case let .failure(error):
-        //                        print(error)
-        //                    }
-        //                }
+        task.resume()
     }
 }

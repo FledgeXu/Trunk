@@ -22,11 +22,15 @@ public struct MediaUploadParameters: Encodable {
 }
 
 public enum MediaEndpoints {
-    public static func upload(parameters: MediaUploadParameters) -> Request<Attachment, MediaUploadParameters> {
-        let parts = ["file": parameters.file,
-                      "thumbnail": parameters.thumbnail,
-                      "description": parameters.description?.data(using: .utf8),
-                      "focus": parameters.focus?.data(using: .utf8)].compactMapValues { $0 }
-        return Request(path: "/api/v2/media", method: .POST(.MEDIA(parts)))
+    public static func upload(file: Data,thumbnail: Data? = nil, description: String? = nil, focus: String? = nil) -> Request<Attachment> {
+        let parameters = [
+            Parameter(key: "description", value: description),
+            Parameter(key: "focus", value: focus),
+        ]
+        let dataParameters = [
+            DataParameter(key: "file", value: file),
+            DataParameter(key: "thumbnail", value: thumbnail)
+        ]
+        return Request(path: "/api/v2/media", method: .POST(.MEDIA(parameters, dataParameters)))
     }
 }

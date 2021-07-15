@@ -9,6 +9,29 @@ import Foundation
 
 protocol Endpoint {}
 
+func toQueryItem(parameter: Parameter) -> URLQueryItem? {
+    guard let value = parameter.value else { return nil }
+    return URLQueryItem(name: parameter.key, value: value)
+}
+
+func toString(parameter: Parameter) -> String? {
+    return parameter.value?
+        .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        .map { value in "\(parameter.key)=\(value)" }
+}
+
+func trueOrNil(_ flag: Bool) -> String? {
+    return flag ? "true" : nil
+}
+
+func between(_ min: Int, and max: Int, default: Int) -> (Int) -> Int {
+    return { limit in (limit >= min && limit <= max) ? limit : `default` }
+}
+
+func toOptionalString<A>(optional: A?) -> String? {
+    return optional.map(String.init(describing:))
+}
+
 extension ISO8601DateFormatter {
     convenience init(_ formatOptions: Options) {
         self.init()
@@ -33,6 +56,14 @@ extension Array where Element == OAuthScopes {
     func toString() -> String {
         return self.reduce("") { result, element in
             return "\(result) \(element)"
+        }
+    }
+}
+
+extension Data {
+    mutating func append(_ string: String) {
+        if let data = string.data(using: .utf8) {
+            self.append(data)
         }
     }
 }

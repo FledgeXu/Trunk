@@ -7,11 +7,11 @@
 
 import Foundation
 
-public struct Request<Model: Codable, Parameters: Encodable>{
+public struct Request<Model: Codable>{
     let path: String
-    let method: Method<Parameters>
+    let method: Method
 
-    init(path: String, method: Method<Parameters> = .GET(.EMPTY)) {
+    init(path: String, method: Method = .GET(.EMPTY)) {
         self.path = path
         self.method = method
     }

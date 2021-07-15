@@ -8,55 +8,25 @@
 import Foundation
 import Alamofire
 
-public struct OAuthObtainTokenParameters: Encodable {
-    let clientId: String
-    let clientSecret: String
-    let redirectUri: String
-    let grantType: String
-    let scope: String?
-    let code: String
-    
-    private enum CodingKeys: String, CodingKey {
-        case clientId = "client_id"
-        case clientSecret = "client_secret"
-        case redirectUri = "redirect_uri"
-        case grantType = "grant_type"
-        case scope
-        case code
-    }
-    public init(clientId: String, clientSecret: String, redirectUri: String = "urn:ietf:wg:oauth:2.0:oob", grantType: String = "authorization_code", code: String, scope: [OAuthScopes]? = nil) {
-        self.clientId = clientId
-        self.clientSecret = clientSecret
-        self.redirectUri = redirectUri
-        self.grantType = grantType
-        self.scope = scope?.toString()
-        self.code = code
-    }
-}
-
-public struct OAuthRevokeTokenParameters: Encodable {
-    let clientId: String
-    let clientSecret: String
-    let token: String
-    
-    private enum CodingKeys: String, CodingKey {
-        case clientId = "client_id"
-        case clientSecret = "client_secret"
-        case token
-    }
-    public init(clientId: String, clientSecret: String, token: String) {
-        self.clientId = clientId
-        self.clientSecret = clientSecret
-        self.token = token
-    }
-}
-
 public enum OAuthEndpoint {
-    public static func obtainToken(parameters: OAuthObtainTokenParameters) -> Request<Token, OAuthObtainTokenParameters> {
+    public static func obtainToken(clientId: String, clientSecret: String, redirectUri: String = "urn:ietf:wg:oauth:2.0:oob", grantType: String = "authorization_code", code: String, scope: [OAuthScopes]? = nil) -> Request<Token> {
+        let parameters = [
+            Parameter(key: "client_id", value: clientId),
+            Parameter(key: "client_secret", value: clientSecret),
+            Parameter(key: "redirect_uri", value: redirectUri),
+            Parameter(key: "grant_type", value: grantType),
+            Parameter(key: "scope", value: scope?.toString()),
+            Parameter(key: "code", value: code)
+        ]
         return Request(path: "/oauth/token", method: .POST(.PARAMETERS(parameters)))
     }
     
-    public static func revokeToken(parameters: OAuthRevokeTokenParameters) -> Request<Empty, OAuthRevokeTokenParameters> {
+    public static func revokeToken(clientId: String, clientSecret: String, token: String) -> Request<Empty> {
+        let parameters = [
+            Parameter(key: "client_id", value: clientId),
+            Parameter(key: "client_secret", value: clientSecret),
+            Parameter(key: "token", value: token)
+        ]
         return Request(path: "/oauth/revoke", method: .POST(.PARAMETERS(parameters)))
     }
 }

@@ -8,28 +8,49 @@
 import Foundation
 import Alamofire
 
-public enum Method<T: Encodable> {
-    case GET(Payload<T>)
-    case POST(Payload<T>)
-    case PUT(Payload<T>)
-    case PATCH(Payload<T>)
+public enum Method {
+    case GET(Payload)
+    case POST(Payload)
+    case PUT(Payload)
+    case DELETE(Payload)
+    case PATCH(Payload)
     
-    var parameters: Payload<T> {
+    var type: String  {
         switch self {
-        case .GET(let parameters), .POST(let parameters), .PUT(let parameters), .PATCH(let parameters):
-            return parameters
+        case .GET: return "GET"
+        case .POST: return "POST"
+        case .PUT: return "PUT"
+        case .DELETE: return "DELETE"
+        case .PATCH: return "PATCH"
         }
     }
-    var type: HTTPMethod  {
+    
+    var queryItems: [URLQueryItem]? {
         switch self {
-        case .GET:
-            return .get
-        case .POST:
-            return .post
-        case .PUT:
-            return .put
-        case .PATCH:
-            return .patch
+        case .GET(let payload):
+            return payload.queryItems
+        default:
+            return nil
+        }
+    }
+    
+    var httpBody: Data? {
+        switch self {
+        case .POST(let payload): return payload.data
+        case .PUT(let payload): return payload.data
+        case .DELETE(let payload): return payload.data
+        case .PATCH(let payload): return payload.data
+        default: return nil
+        }
+    }
+    
+    var contentType: String? {
+        switch self {
+        case .POST(let payload): return payload.contentType
+        case .PUT(let payload): return payload.contentType
+        case .PATCH(let payload): return payload.contentType
+        case .DELETE(let payload): return payload.contentType
+        default: return nil
         }
     }
 }
