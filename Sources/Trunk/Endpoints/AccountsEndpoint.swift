@@ -13,7 +13,11 @@ public enum AccountsEndpoint {
         return Request(path: "/api/v1/accounts/verify_credentials")
     }
     
-    public static func filters(phrase: String, context: [FilterContextType], irreversible: Bool? = nil, wholeWord: Bool? = nil, expiresIn: Int? = nil) -> Request<Filter> {
+    public static func filters(phrase: String,
+                               context: [FilterContextType],
+                               irreversible: Bool? = nil,
+                               wholeWord: Bool? = nil,
+                               expiresIn: Int? = nil) -> Request<Filter> {
         var parameters = [
             Parameter(key: "phrase", value: phrase),
             Parameter(key: "irreversible", value: irreversible.flatMap(trueOrNil)),
@@ -26,7 +30,17 @@ public enum AccountsEndpoint {
         return Request(path: "/api/v1/filters", method: .POST(.PARAMETERS(parameters)))
     }
     
-    public static func updateCredentials(discoverable: String? = nil, bot: Bool? = nil, displayName: String? = nil, note: String? = nil, avatar: Data? = nil, header: Data? = nil, locked: Bool? = nil, sourcePrivacy: String? = nil, sourceSensitive: Bool? = nil, sourceLanguage: String? = nil, fieldsAttributes: [Field]? = nil) -> Request<Account> {
+    public static func updateCredentials(discoverable: String? = nil,
+                                         bot: Bool? = nil,
+                                         displayName: String? = nil,
+                                         note: String? = nil,
+                                         avatar: Data? = nil,
+                                         header: Data? = nil,
+                                         locked: Bool? = nil,
+                                         sourcePrivacy: String? = nil,
+                                         sourceSensitive: Bool? = nil,
+                                         sourceLanguage: String? = nil,
+                                         fieldsAttributes: [Field]? = nil) -> Request<Account> {
         var parameters = [
             Parameter(key: "discoverable", value: discoverable),
             Parameter(key: "bot", value: bot.flatMap(trueOrNil)),
