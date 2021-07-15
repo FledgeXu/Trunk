@@ -31,18 +31,18 @@ public class AttachmentVideoMeta: Codable {
         public let aspect: Double
     }
     
-    public let length: String
-    public let duration: Double
-    public let fps: Int
-    public let size: String
-    public let width: Int
-    public let height: Int
-    public let aspect: Double
-    public let audioEncode: String
-    public let audioBitrate: String
-    public let audioChannels: String
-    public let original: MetaOriginal
-    public let small: MetaSmall
+    public let length: String?
+    public let duration: Double?
+    public let fps: Int?
+    public let size: String?
+    public let width: Int?
+    public let height: Int?
+    public let aspect: Double?
+    public let audioEncode: String?
+    public let audioBitrate: String?
+    public let audioChannels: String?
+    public let original: MetaOriginal?
+    public let small: MetaSmall?
     
     private enum CodingKeys: String, CodingKey {
         case length

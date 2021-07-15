@@ -14,12 +14,12 @@ public class AttachmentAudioMeta: Codable {
         public let bitrate: Int
     }
     
-    public let length: String
-    public let duration: Double
-    public let audioEncode: String
-    public let audioBitrate: String
-    public let audioChannels: String
-    public let original: MetaOriginal
+    public let length: String?
+    public let duration: Double?
+    public let audioEncode: String?
+    public let audioBitrate: String?
+    public let audioChannels: String?
+    public let original: MetaOriginal?
     
     private enum CodingKeys: String, CodingKey {
         case length

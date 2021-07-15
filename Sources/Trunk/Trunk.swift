@@ -49,12 +49,11 @@ public struct Trunk {
             //                completion(.failure(ClientError.invalidModel))
             //                return
             //            }
-            guard  let result = try? JSONDecoder().decode(Model.self, from: data) else {
-                return
-            }
+            let str = String(data: data, encoding: .utf8)
+            print(str!)
+            let result = try! JSONDecoder().decode(Model.self, from: data)
             completion(result)
-            //            let str = String(data: data, encoding: .utf8)
-            //            print(str)
+            
             
             //            completion(.success(model, httpResponse.pagination))
         }

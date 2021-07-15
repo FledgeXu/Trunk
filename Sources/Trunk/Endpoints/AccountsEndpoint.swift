@@ -69,4 +69,8 @@ public enum AccountsEndpoint {
     public static func retrieveInformation(id: Int) -> Request<Account> {
         return Request(path: "/api/v1/accounts/\(id)")
     }
+    
+    public static func getStatuses(id: Int) -> Request<[Status]> {
+        return Request(path: "/api/v1/accounts/\(id)/statuses")
+    }
 }

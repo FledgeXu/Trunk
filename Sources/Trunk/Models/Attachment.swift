@@ -65,16 +65,16 @@ public class Attachment: Codable {
                 self = .video(meta)
                 return
             }
-            if let meta = try? container.decode(AttachmentAudioMeta.self){
-                self = .audio(meta)
-                return
-            }
             if let meta = try? container.decode(AttachmentGIFVMeta.self){
                 self = .gifv(meta)
                 return
             }
             if let meta = try? container.decode(AttachmentImageMeta.self){
                 self = .image(meta)
+                return
+            }
+            if let meta = try? container.decode(AttachmentAudioMeta.self){
+                self = .audio(meta)
                 return
             }
             throw DecodingError.typeMismatch(AttachmentMetaType.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for AttachmentMetaType"))
