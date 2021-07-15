@@ -97,4 +97,8 @@ public enum AccountsEndpoint {
     public static func getFeaturedTags(id: Int) -> Request<[FeaturedTag]> {
         return Request(path: "/api/v1/accounts/\(id)/featured_tags")
     }
+    
+    public static func getLists(containsWithAccountId id: Int) -> Request<[List]> {
+        return Request(path: "/api/v1/accounts/\(id)/lists")
+    }
 }
