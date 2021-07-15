@@ -25,4 +25,30 @@ public enum AccountsEndpoint {
         }
         return Request(path: "/api/v1/filters", method: .POST(.PARAMETERS(parameters)))
     }
+    
+    public static func updateCredentials(discoverable: String? = nil, bot: Bool? = nil, displayName: String? = nil, note: String? = nil, avatar: Data? = nil, header: Data? = nil, locked: Bool? = nil, sourcePrivacy: String? = nil, sourceSensitive: Bool? = nil, sourceLanguage: String? = nil, fieldsAttributes: [Field]? = nil) -> Request<Account> {
+        var parameters = [
+            Parameter(key: "discoverable", value: discoverable),
+            Parameter(key: "bot", value: bot.flatMap(trueOrNil)),
+            Parameter(key: "display_name", value: displayName),
+            Parameter(key: "note", value: note),
+            Parameter(key: "locked", value: locked.flatMap(trueOrNil)),
+            Parameter(key: "source[privacy]", value: sourcePrivacy),
+            Parameter(key: "source[sensitive]", value: sourceSensitive.flatMap(trueOrNil)),
+            Parameter(key: "source[language]", value: sourceLanguage)
+        ]
+        if let fields = fieldsAttributes {
+            for (index, field) in fields.enumerated() {
+                parameters.append(Parameter(key: "fields_attributes[\(index)][name]", value: field.name))
+                parameters.append(Parameter(key: "fields_attributes[\(index)][value]", value: field.value))
+                parameters.append(Parameter(key: "fields_attributes[\(index)][verified_at]", value: field.verifiedAt))
+            }
+        }
+        let dataParameters = [
+            DataParameter(key: "avatar", value: avatar),
+            DataParameter(key: "header", value: header)
+        ]
+        
+        return Request(path: "/api/v1/accounts/update_credentials", method: .PATCH(.MEDIA(parameters, dataParameters)))
+    }
 }
