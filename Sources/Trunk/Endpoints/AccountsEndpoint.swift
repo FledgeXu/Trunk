@@ -51,4 +51,8 @@ public enum AccountsEndpoint {
         
         return Request(path: "/api/v1/accounts/update_credentials", method: .PATCH(.MEDIA(parameters, dataParameters)))
     }
+    
+    public static func retrieveInformation(id: Int) -> Request<Account> {
+        return Request(path: "/api/v1/accounts/\(id)")
+    }
 }
