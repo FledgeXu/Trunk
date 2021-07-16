@@ -17,4 +17,8 @@ public enum FollowRequestsEndpoint {
     public static func acceptFollow(id: Int) -> Request<Relationship> {
         return Request(path: "/api/v1/follow_requests/\(id)/authorize", method: .POST(.EMPTY))
     }
+    
+    public static func rejectFollow(id: Int) -> Request<Relationship> {
+        return Request(path: "/api/v1/follow_requests/\(id)/reject", method: .POST(.EMPTY))
+    }
 }
