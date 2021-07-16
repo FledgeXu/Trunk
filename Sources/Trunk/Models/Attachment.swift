@@ -9,6 +9,31 @@ import Foundation
 
 /// Represents a file or media attachment that can be added to a status.
 public class Attachment: Codable {
+    required public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(String.self, forKey: .id)
+        type = try values.decode(AttachmentType.self, forKey: .type)
+        url = try? values.decode(URL?.self, forKey: .url)
+        previewURL = try? values.decode(URL?.self, forKey: .previewURL)
+        remoteUrl = try? values.decode(URL?.self, forKey: .remoteUrl)
+        previewRemoteURL = try? values.decode(URL?.self, forKey: .previewRemoteURL)
+        textURL = try? values.decode(URL?.self, forKey: .textURL)
+        switch type {
+        case .audio:
+            meta = .audio(try values.decode(AttachmentAudioMeta.self, forKey: .meta))
+        case .video:
+            meta = .video(try values.decode(AttachmentVideoMeta.self, forKey: .meta))
+        case .gifv:
+            meta = .gifv(try values.decode(AttachmentGIFVMeta.self, forKey: .meta))
+        case .image:
+            meta = .image(try values.decode(AttachmentImageMeta.self, forKey: .meta))
+        default:
+            meta = nil
+        }
+        description = try? values.decode(String?.self, forKey: .description)
+        blurhash = try? values.decode(String?.self, forKey: .blurhash)
+
+    }
     // Required attributes
     /// The ID of the attachment in the database.
     public let id: String
@@ -58,30 +83,8 @@ public class Attachment: Codable {
         /// Audio track
         case audio
     }
-    public enum AttachmentMetaType: Codable {
-        public init(from decoder: Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            
-            // Notice: Please careful change this parsing order.
-            if let meta = try? container.decode(AttachmentVideoMeta.self){
-                self = .video(meta)
-                return
-            }
-            if let meta = try? container.decode(AttachmentGIFVMeta.self){
-                self = .gifv(meta)
-                return
-            }
-            if let meta = try? container.decode(AttachmentImageMeta.self){
-                self = .image(meta)
-                return
-            }
-            if let meta = try? container.decode(AttachmentAudioMeta.self){
-                self = .audio(meta)
-                return
-            }
-            throw DecodingError.typeMismatch(AttachmentMetaType.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for AttachmentMetaType"))
-        }
-        
+    
+    public enum AttachmentMetaType: Encodable {
         public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
