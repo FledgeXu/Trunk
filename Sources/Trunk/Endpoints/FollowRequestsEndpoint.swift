@@ -13,4 +13,8 @@ public enum FollowRequestsEndpoint {
         let parameters = [Parameter(key: "limit", value: limit.map(toLimitBounds).flatMap(toOptionalString))]
         return Request(path: "/api/v1/follow_requests", method: .GET(.PARAMETERS(parameters)))
     }
+    
+    public static func acceptFollow(id: Int) -> Request<Relationship> {
+        return Request(path: "/api/v1/follow_requests/\(id)/authorize", method: .POST(.EMPTY))
+    }
 }
