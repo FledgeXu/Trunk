@@ -13,4 +13,8 @@ public enum SuggestionsEndpoint {
         let parameters = [Parameter(key: "limit", value: limit.map(toBettern).flatMap(toOptionalString))]
         return Request(path: "/api/v1/suggestions", method: .GET(.PARAMETERS(parameters)))
     }
+    
+    public static func removeSuggestion(id: Int) -> Request<Empty> {
+        return Request(path: "/api/v1/suggestions/\(id)", method: .DELETE(.EMPTY))
+    }
 }
