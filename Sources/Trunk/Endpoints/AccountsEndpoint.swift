@@ -101,4 +101,8 @@ public enum AccountsEndpoint {
     public static func getLists(containsWithAccountId id: Int) -> Request<[List]> {
         return Request(path: "/api/v1/accounts/\(id)/lists")
     }
+    
+    public static func getIdentityProofs(id: Int) -> Request<[IdentityProof]> {
+        return Request(path: "/api/v1/accounts/\(id)/identity_proofs")
+    }
 }
