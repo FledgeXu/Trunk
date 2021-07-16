@@ -37,7 +37,7 @@ public class Account: Codable {
     /// Custom emoji entities to be used when rendering the profile. If none, an empty array will be returned.
     public let emojis: [Emoji]
     /// Whether the account has opted into discovery features such as the profile directory.
-    public let discoverable: Bool
+    public let discoverable: Bool?
     
     //Statistical attributes
     /// When the account was created.

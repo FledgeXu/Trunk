@@ -160,4 +160,18 @@ public enum AccountsEndpoint {
         })
         return Request(path: "/api/v1/accounts/relationships", method: .GET(.PARAMETERS(parameters)))
     }
+    
+    public static func searchAccounts(keyword q: String,
+                                      limit: Int? = nil,
+                                      resolve: Bool? = nil,
+                                      following: Bool? = nil) -> Request<[Account]> {
+        let toLimitBounds = between(1, and: 80, default: 40)
+        let parameters: [Parameter] = [
+            Parameter(key: "q", value: q),
+            Parameter(key: "limit", value: limit.map(toLimitBounds).flatMap(toOptionalString)),
+            Parameter(key: "resolve", value: resolve.flatMap(trueOrNil)),
+            Parameter(key: "following", value: following.flatMap(trueOrNil)),
+        ]
+        return Request(path: "/api/v1/accounts/search", method: .GET(.PARAMETERS(parameters)))
+    }
 }
