@@ -12,7 +12,7 @@ public enum FeaturedTagsEndpoint {
         return Request(path: "/api/v1/featured_tags", method: .GET(.EMPTY))
     }
     
-    public static func addFeaturedTags(name: String) -> Request<FeaturedTag> {
+    public static func featureTag(name: String) -> Request<FeaturedTag> {
         let parameters = [Parameter(key: "name", value: name),]
         return Request(path: "/api/v1/featured_tags", method: .POST(.PARAMETERS(parameters)))
     }
