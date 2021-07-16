@@ -145,4 +145,11 @@ public enum AccountsEndpoint {
     public static func unfeatureOnProfile(withId id: Int) -> Request<Relationship> {
         return Request(path: "/api/v1/accounts/\(id)/unpin", method: .POST(.EMPTY))
     }
+    
+    public static func setUserNote(id: Int, comment: String? = nil) -> Request<Relationship> {
+        let parameters = [
+            Parameter(key: "comment", value: comment)
+        ]
+        return Request(path: "/api/v1/accounts/\(id)/note", method: .POST(.PARAMETERS(parameters)))
+    }
 }
