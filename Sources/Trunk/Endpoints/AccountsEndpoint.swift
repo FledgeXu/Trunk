@@ -125,4 +125,16 @@ public enum AccountsEndpoint {
     public static func unblock(id: Int) -> Request<Relationship> {
         return Request(path: "/api/v1/accounts/\(id)/unblock", method: .POST(.EMPTY))
     }
+    
+    public static func mute(id: Int, notifications: Bool? = nil, duration: Int? = nil) -> Request<Relationship> {
+        let parameters = [
+            Parameter(key: "notifications", value: notifications.flatMap(trueOrNil)),
+            Parameter(key: "duration", value: duration.flatMap(toOptionalString))
+        ]
+        return Request(path: "/api/v1/accounts/\(id)/mute", method: .POST(.PARAMETERS(parameters)))
+    }
+    
+    public static func unmute(id: Int) -> Request<Relationship> {
+        return Request(path: "/api/v1/accounts/\(id)/unmute", method: .POST(.EMPTY))
+    }
 }
