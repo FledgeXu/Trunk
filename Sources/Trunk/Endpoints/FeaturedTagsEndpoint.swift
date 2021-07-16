@@ -20,4 +20,8 @@ public enum FeaturedTagsEndpoint {
     public static func unfeatureTag(id: Int) -> Request<Empty> {
         return Request(path: "/api/v1/featured_tags/\(id)", method: .DELETE(.EMPTY))
     }
+    
+    public static func getSuggestedTagsToFeature()-> Request<[Tag]> {
+        return Request(path: "/api/v1/featured_tags/suggestions", method: .GET(.EMPTY))
+    }
 }
