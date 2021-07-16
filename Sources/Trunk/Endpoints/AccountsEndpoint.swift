@@ -117,4 +117,12 @@ public enum AccountsEndpoint {
     public static func unfollow(id: Int) -> Request<Relationship> {
         return Request(path: "/api/v1/accounts/\(id)/unfollow", method: .POST(.EMPTY))
     }
+    
+    public static func block(id: Int) -> Request<Relationship> {
+        return Request(path: "/api/v1/accounts/\(id)/block", method: .POST(.EMPTY))
+    }
+    
+    public static func unblock(id: Int) -> Request<Relationship> {
+        return Request(path: "/api/v1/accounts/\(id)/unblock", method: .POST(.EMPTY))
+    }
 }
