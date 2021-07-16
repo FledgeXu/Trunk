@@ -15,6 +15,9 @@ extension URLRequest {
         httpBody = request.method.httpBody
 
         setValue(accessToken.map { "Bearer \($0)" }, forHTTPHeaderField: "Authorization")
+        request.headers.forEach { header in
+            setValue(header.value, forHTTPHeaderField: header.name)
+        }
         setValue(request.method.contentType, forHTTPHeaderField: "Content-Type")
     }
 }

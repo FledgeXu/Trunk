@@ -10,9 +10,11 @@ import Foundation
 public struct Request<Model: Codable>{
     let path: String
     let method: Method
+    let headers: [Header]
 
-    init(path: String, method: Method = .GET(.EMPTY)) {
+    init(path: String, method: Method = .GET(.EMPTY), headers: [Header] = []) {
         self.path = path
         self.method = method
+        self.headers = headers
     }
 }
