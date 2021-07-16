@@ -19,4 +19,14 @@ public enum DomainBlocksEndpoint {
         ]
         return Request(path: "/api/v1/domain_blocks", method: .GET(.PARAMETERS(parameters)))
     }
+    
+    public static func blockDomain(domain: String) -> Request<Empty> {
+        let parameters = [Parameter(key: "domain",value: domain)]
+        return Request(path: "/api/v1/domain_blocks", method: .POST(.PARAMETERS(parameters)))
+    }
+    
+    public static func unblockDomain(domain: String) -> Request<Empty> {
+        let parameters = [Parameter(key: "domain",value: domain)]
+        return Request(path: "/api/v1/domain_blocks", method: .DELETE(.PARAMETERS(parameters)))
+    }
 }
