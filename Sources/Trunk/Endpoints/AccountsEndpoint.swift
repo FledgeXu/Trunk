@@ -152,4 +152,12 @@ public enum AccountsEndpoint {
         ]
         return Request(path: "/api/v1/accounts/\(id)/note", method: .POST(.PARAMETERS(parameters)))
     }
+    
+    public static func checkRelationships(withIds ids: [Int]) -> Request<[Relationship]> {
+        var parameters: [Parameter] = []
+        ids.forEach({ value in
+            parameters.append(Parameter(key: "id[]", value: String(value)))
+        })
+        return Request(path: "/api/v1/accounts/relationships", method: .GET(.PARAMETERS(parameters)))
+    }
 }
