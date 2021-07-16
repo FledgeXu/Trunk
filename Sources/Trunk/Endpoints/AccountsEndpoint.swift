@@ -137,4 +137,12 @@ public enum AccountsEndpoint {
     public static func unmute(id: Int) -> Request<Relationship> {
         return Request(path: "/api/v1/accounts/\(id)/unmute", method: .POST(.EMPTY))
     }
+    
+    public static func featureOnProfile(withId id: Int) -> Request<Relationship> {
+        return Request(path: "/api/v1/accounts/\(id)/pin", method: .POST(.EMPTY))
+    }
+    
+    public static func unfeatureOnProfile(withId id: Int) -> Request<Relationship> {
+        return Request(path: "/api/v1/accounts/\(id)/unpin", method: .POST(.EMPTY))
+    }
 }
