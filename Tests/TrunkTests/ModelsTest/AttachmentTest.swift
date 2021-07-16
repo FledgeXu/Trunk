@@ -175,7 +175,7 @@ final class AttachmentTest: XCTestCase {
         XCTAssertEqual(resultVideo.id, "22546306")
         switch resultVideo.meta {
         case .video(let meta):
-            XCTAssertEqual(meta.small.size, "400x225")
+            XCTAssertEqual(meta.small?.size, "400x225")
         default:
             XCTFail()
         }

@@ -29,6 +29,6 @@ final class AttachmentAudioMetaTests: XCTestCase {
         let jsonData = testJosn.data(using: .utf8)!
         let result = try! JSONDecoder().decode(type, from: jsonData)
         // Asserts
-        XCTAssertEqual(result.original.bitrate, 166290)
+        XCTAssertEqual(result.original?.bitrate, 166290)
     }
 }

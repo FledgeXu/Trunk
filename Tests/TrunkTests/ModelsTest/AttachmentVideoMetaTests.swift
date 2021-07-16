@@ -44,6 +44,6 @@ final class AttachmentVideoMetaTests: XCTestCase {
         let result = try! JSONDecoder().decode(type, from: jsonData)
         // Asserts
         XCTAssertEqual(result.audioEncode, "aac (LC) (mp4a / 0x6134706D)")
-        XCTAssertEqual(result.original.frameRate, "6159375/249269")
+        XCTAssertEqual(result.original?.frameRate, "6159375/249269")
     }
 }

@@ -41,6 +41,6 @@ final class AttachmentGIFVMetaTests: XCTestCase {
         let result = try! JSONDecoder().decode(type, from: jsonData)
         // Asserts
         XCTAssertEqual(result.size, "600x332")
-        XCTAssertEqual(result.original.frameRate, "100/3")
+        XCTAssertEqual(result.original?.frameRate, "100/3")
     }
 }

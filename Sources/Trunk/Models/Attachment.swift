@@ -61,6 +61,8 @@ public class Attachment: Codable {
     public enum AttachmentMetaType: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
+            
+            // Notice: Please careful change this parsing order.
             if let meta = try? container.decode(AttachmentVideoMeta.self){
                 self = .video(meta)
                 return
