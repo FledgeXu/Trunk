@@ -50,4 +50,8 @@ public enum FiltersEndpoint {
         })
         return Request(path: "/api/v1/filters/\(id)", method: .PUT(.PARAMETERS(parameters)))
     }
+    
+    public static func removeFilter(id: Int) -> Request<Empty> {
+        return Request(path: "/api/v1/filters/\(id)", method: .DELETE(.EMPTY))
+    }
 }
