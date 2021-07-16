@@ -105,4 +105,12 @@ public enum AccountsEndpoint {
     public static func getIdentityProofs(id: Int) -> Request<[IdentityProof]> {
         return Request(path: "/api/v1/accounts/\(id)/identity_proofs")
     }
+    
+    public static func follow(id: Int, reblogs: Bool? = nil, notify: Bool? = nil) -> Request<Relationship> {
+        let parameters = [
+            Parameter(key: "reblogs", value: reblogs.flatMap(trueOrNil)),
+            Parameter(key: "notify", value: notify.flatMap(trueOrNil))
+        ]
+        return Request(path: "/api/v1/accounts/\(id)/follow", method: .POST(.PARAMETERS(parameters)))
+    }
 }
