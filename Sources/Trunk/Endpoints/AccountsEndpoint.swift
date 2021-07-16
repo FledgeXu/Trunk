@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 public enum AccountsEndpoint {
     public static func verifyCredentials() -> Request<Account> {

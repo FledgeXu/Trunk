@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 public enum AppsEndpoint {
     public static func createApplication(clientName: String,

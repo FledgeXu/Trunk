@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 public enum TimelineEndpoint {
     public static func `public`(local: Bool? = nil,

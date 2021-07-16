@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 public enum MediaEndpoints {
     public static func upload(file: Data,

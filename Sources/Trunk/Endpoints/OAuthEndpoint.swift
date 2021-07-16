@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 public enum OAuthEndpoint {
     public static func obtainToken(clientId: String,
