@@ -8,5 +8,5 @@
 import Foundation
 public struct Header {
     let name: String
-    let value: String
+    let value: String?
 }

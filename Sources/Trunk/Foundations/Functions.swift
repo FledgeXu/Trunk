@@ -6,8 +6,13 @@
 //
 
 import Foundation
+import CryptoKit
 
 protocol Endpoint {}
+
+func generateParametersHash(data: Data) -> String {
+    return SHA256.hash(data: data).description
+}
 
 func toQueryItem(parameter: Parameter) -> URLQueryItem? {
     guard let value = parameter.value else { return nil }
