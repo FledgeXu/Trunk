@@ -25,4 +25,8 @@ public enum ConversationsEndpoint {
     public static func deleteConversations(id: String) -> Request<Empty> {
         return Request(path: "/api/v1/conversations/\(id)", method: .DELETE(.EMPTY))
     }
+    
+    public static func makeAsReadConversations(id: String) -> Request<Conversation> {
+        return Request(path: "/api/v1/conversations/\(id)/read", method: .POST(.EMPTY))
+    }
 }
