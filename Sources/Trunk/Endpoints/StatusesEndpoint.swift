@@ -128,4 +128,8 @@ public enum StatusesEndpoint {
     public static func favouriteStatus(id: String) -> Request<Status> {
         return Request(path: "/api/v1/statuses/\(id)/favourite", method: .POST(.EMPTY))
     }
+    
+    public static func unfavouriteStatus(id: String) -> Request<Status> {
+        return Request(path: "/api/v1/statuses/\(id)/unfavourite", method: .POST(.EMPTY))
+    }
 }
