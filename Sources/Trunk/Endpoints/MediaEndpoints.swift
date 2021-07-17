@@ -22,4 +22,8 @@ public enum MediaEndpoints {
         ]
         return Request(path: "/api/v2/media", method: .POST(.MEDIA(parameters, dataParameters)))
     }
+    
+    public static func getAttachment(id: String) -> Request<Attachment> {
+        return Request(path: "/api/v1/media/\(id)", method: .GET(.EMPTY))
+    }
 }
