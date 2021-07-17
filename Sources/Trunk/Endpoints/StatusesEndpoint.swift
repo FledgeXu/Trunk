@@ -120,4 +120,8 @@ public enum StatusesEndpoint {
     public static func getBoostedByAccounts(withId id: String) -> Request<[Account]> {
         return Request(path: "/api/v1/statuses/\(id)/reblogged_by", method: .GET(.EMPTY))
     }
+    
+    public static func getFavouritedByAccounts(withId id: String) -> Request<[Account]> {
+        return Request(path: "/api/v1/statuses/\(id)/favourited_by", method: .GET(.EMPTY))
+    }
 }
