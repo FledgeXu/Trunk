@@ -157,4 +157,12 @@ public enum StatusesEndpoint {
     public static func unmuteConversation(id: String) -> Request<Status> {
         return Request(path: "/api/v1/statuses/\(id)/unmute", method: .POST(.EMPTY))
     }
+    
+    public static func pinStatus(id: String) -> Request<Status> {
+        return Request(path: "/api/v1/statuses/\(id)/pin", method: .POST(.EMPTY))
+    }
+    
+    public static func unpinStatus(id: String) -> Request<Status> {
+        return Request(path: "/api/v1/statuses/\(id)/unpin", method: .POST(.EMPTY))
+    }
 }
