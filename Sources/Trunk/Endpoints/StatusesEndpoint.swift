@@ -112,4 +112,8 @@ public enum StatusesEndpoint {
     public static func deleteStatus(id: String) -> Request<Status> {
         return Request(path: "/api/v1/statuses/\(id)", method: .DELETE(.EMPTY))
     }
+    
+    public static func getParentAndChildStatuses(id: String) -> Request<Context> {
+        return Request(path: "/api/v1/statuses/\(id)/context", method: .GET(.EMPTY))
+    }
 }
