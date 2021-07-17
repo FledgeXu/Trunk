@@ -132,4 +132,13 @@ public enum StatusesEndpoint {
     public static func unfavouriteStatus(id: String) -> Request<Status> {
         return Request(path: "/api/v1/statuses/\(id)/unfavourite", method: .POST(.EMPTY))
     }
+    
+    public static func boostStatus(id: String, visibility: VisibilityType? = nil) -> Request<Status> {
+        let parameters = [Parameter(key: "visibility", value: visibility?.rawValue)]
+        return Request(path: "/api/v1/statuses/\(id)/reblog", method: .POST(.PARAMETERS(parameters)))
+    }
+    
+    public static func unboostStatus(id: String) -> Request<Status> {
+        return Request(path: "/api/v1/statuses/\(id)/unreblog", method: .POST(.EMPTY))
+    }
 }
