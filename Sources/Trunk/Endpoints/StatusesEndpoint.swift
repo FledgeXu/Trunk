@@ -105,4 +105,7 @@ public enum StatusesEndpoint {
         return Request(path: "/api/v1/statuses", method: .POST(payload), headers: [Header(name: "Idempotency-Key", value: base64Data)])
     }
 
+    public static func getSpecificStatus(id: String) -> Request<Status> {
+        return Request(path: "/api/v1/statuses/\(id)", method: .GET(.EMPTY))
+    }
 }
