@@ -1,5 +1,4 @@
 import Foundation
-import Alamofire
 
 public struct Trunk {
     let instanceURL: String
@@ -49,6 +48,7 @@ public struct Trunk {
             //                completion(.failure(ClientError.invalidModel))
             //                return
             //            }
+            print(httpResponse.headers)
             let str = String(data: data, encoding: .utf8)
             print(str!)
             let result = try! JSONDecoder().decode(Model.self, from: data)
