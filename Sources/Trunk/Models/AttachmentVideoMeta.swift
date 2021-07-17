@@ -38,9 +38,9 @@ public class AttachmentVideoMeta: Codable {
     public let width: Int?
     public let height: Int?
     public let aspect: Double?
-    public let audioEncode: String
-    public let audioBitrate: String
-    public let audioChannels: String
+    public let audioEncode: String?
+    public let audioBitrate: String?
+    public let audioChannels: String?
     public let original: MetaOriginal?
     public let small: MetaSmall?
     
