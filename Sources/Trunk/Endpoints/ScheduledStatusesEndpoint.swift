@@ -25,4 +25,13 @@ public enum ScheduledStatusesEndpoint {
     public static func getSpecificScheduledStatus(id: String) -> Request<ScheduledStatus> {
         return Request(path: "/api/v1/scheduled_statuses/\(id)", method: .GET(.EMPTY))
     }
+    
+    public static func updateScheduledStatusTime(id: String, scheduledAt: Date) -> Request<ScheduledStatus> {
+        let parameters = [Parameter(key: "scheduled_at", value: scheduledAt.iso8601withFractionalSeconds)]
+        return Request(path: "/api/v1/scheduled_statuses/\(id)", method: .PUT(.PARAMETERS(parameters)))
+    }
+    
+    public static func deleteScheduledStatus(id: String) -> Request<Empty> {
+        return Request(path: "/api/v1/scheduled_statuses/\(id)", method: .DELETE(.EMPTY))
+    }
 }
