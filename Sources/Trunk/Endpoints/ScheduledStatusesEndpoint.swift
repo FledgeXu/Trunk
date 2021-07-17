@@ -21,4 +21,8 @@ public enum ScheduledStatusesEndpoint {
         ]
         return Request(path: "/api/v1/scheduled_statuses", method: .GET(.PARAMETERS(parameters)))
     }
+    
+    public static func getSpecificScheduledStatus(id: String) -> Request<ScheduledStatus> {
+        return Request(path: "/api/v1/scheduled_statuses/\(id)", method: .GET(.EMPTY))
+    }
 }
