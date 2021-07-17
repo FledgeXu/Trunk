@@ -18,7 +18,7 @@ public class Status: Codable {
     /// he account that authored this status.
     public let account: Account
     /// HTML-encoded status content.
-    public let content: String
+    public let content: String?
     /// Visibility of this status.
     public let visibility: VisibilityType
     /// Is this status marked as sensitive content?

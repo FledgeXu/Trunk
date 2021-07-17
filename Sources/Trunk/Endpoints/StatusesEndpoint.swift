@@ -108,4 +108,8 @@ public enum StatusesEndpoint {
     public static func getSpecificStatus(id: String) -> Request<Status> {
         return Request(path: "/api/v1/statuses/\(id)", method: .GET(.EMPTY))
     }
+    
+    public static func deleteStatus(id: String) -> Request<Status> {
+        return Request(path: "/api/v1/statuses/\(id)", method: .DELETE(.EMPTY))
+    }
 }
