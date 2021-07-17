@@ -9,43 +9,43 @@ import Foundation
 
 public enum StatusesEndpoint {
     public static func publishStatusWithPoll(status: String,
-                              mediaIds: [String]? = nil,
-                              pollOptions: [String],
-                              pollExpiresIn: Int,
-                              pollMultiple: Bool? = nil,
-                              pollHideTotals: Bool? = nil,
-                              inReplyToId: String? = nil,
-                              sensitive: Bool? = nil,
-                              spoilerText: String? = nil,
-                              visibility: VisibilityType? = nil,
-                              language: String? = nil) -> Request<Status> {
+                                             mediaIds: [String]? = nil,
+                                             pollOptions: [String],
+                                             pollExpiresIn: Int,
+                                             pollMultiple: Bool? = nil,
+                                             pollHideTotals: Bool? = nil,
+                                             inReplyToId: String? = nil,
+                                             sensitive: Bool? = nil,
+                                             spoilerText: String? = nil,
+                                             visibility: VisibilityType? = nil,
+                                             language: String? = nil) -> Request<Status> {
         publishStatus(status: status, mediaIds: mediaIds, pollOptions: pollOptions, pollExpiresIn: pollExpiresIn, pollMultiple: pollMultiple, pollHideTotals: pollHideTotals, inReplyToId: inReplyToId, sensitive: sensitive, spoilerText: spoilerText, visibility: visibility, language: language)
     }
     
     public static func publishStatusWithMedia(status: String,
-                              mediaIds: [String],
-                              pollOptions: [String]? = nil,
-                              pollExpiresIn: Int? = nil,
-                              pollMultiple: Bool? = nil,
-                              pollHideTotals: Bool? = nil,
-                              inReplyToId: String? = nil,
-                              sensitive: Bool? = nil,
-                              spoilerText: String? = nil,
-                              visibility: VisibilityType? = nil,
-                              language: String? = nil) -> Request<Status> {
+                                              mediaIds: [String],
+                                              pollOptions: [String]? = nil,
+                                              pollExpiresIn: Int? = nil,
+                                              pollMultiple: Bool? = nil,
+                                              pollHideTotals: Bool? = nil,
+                                              inReplyToId: String? = nil,
+                                              sensitive: Bool? = nil,
+                                              spoilerText: String? = nil,
+                                              visibility: VisibilityType? = nil,
+                                              language: String? = nil) -> Request<Status> {
         publishStatus(status: status, mediaIds: mediaIds, pollOptions: pollOptions, pollExpiresIn: pollExpiresIn, pollMultiple: pollMultiple, pollHideTotals: pollHideTotals, inReplyToId: inReplyToId, sensitive: sensitive, spoilerText: spoilerText, visibility: visibility, language: language)
     }
     public static func publishStatus(status: String,
-                              mediaIds: [String]? = nil,
-                              pollOptions: [String]? = nil,
-                              pollExpiresIn: Int? = nil,
-                              pollMultiple: Bool? = nil,
-                              pollHideTotals: Bool? = nil,
-                              inReplyToId: String? = nil,
-                              sensitive: Bool? = nil,
-                              spoilerText: String? = nil,
-                              visibility: VisibilityType? = nil,
-                              language: String? = nil) -> Request<Status> {
+                                     mediaIds: [String]? = nil,
+                                     pollOptions: [String]? = nil,
+                                     pollExpiresIn: Int? = nil,
+                                     pollMultiple: Bool? = nil,
+                                     pollHideTotals: Bool? = nil,
+                                     inReplyToId: String? = nil,
+                                     sensitive: Bool? = nil,
+                                     spoilerText: String? = nil,
+                                     visibility: VisibilityType? = nil,
+                                     language: String? = nil) -> Request<Status> {
         var parameters = [
             Parameter(key: "status", value: status),
             Parameter(key: "poll[expires_in]", value: pollExpiresIn.flatMap(toOptionalString)),
@@ -70,17 +70,17 @@ public enum StatusesEndpoint {
     }
     
     public static func publishschedulededStatus(status: String,
-                              scheduledAt: Date,
-                              mediaIds: [String]? = nil,
-                              pollOptions: [String]? = nil,
-                              pollExpiresIn: Int? = nil,
-                              pollMultiple: Bool? = nil,
-                              pollHideTotals: Bool? = nil,
-                              inReplyToId: String? = nil,
-                              sensitive: Bool? = nil,
-                              spoilerText: String? = nil,
-                              visibility: VisibilityType? = nil,
-                              language: String? = nil) -> Request<ScheduledStatus> {
+                                                scheduledAt: Date,
+                                                mediaIds: [String]? = nil,
+                                                pollOptions: [String]? = nil,
+                                                pollExpiresIn: Int? = nil,
+                                                pollMultiple: Bool? = nil,
+                                                pollHideTotals: Bool? = nil,
+                                                inReplyToId: String? = nil,
+                                                sensitive: Bool? = nil,
+                                                spoilerText: String? = nil,
+                                                visibility: VisibilityType? = nil,
+                                                language: String? = nil) -> Request<ScheduledStatus> {
         var parameters = [
             Parameter(key: "status", value: status),
             Parameter(key: "scheduled_at", value: scheduledAt.iso8601withFractionalSeconds),
@@ -104,7 +104,7 @@ public enum StatusesEndpoint {
         let base64Data = generateParametersHash(data: payload.data ?? Data())
         return Request(path: "/api/v1/statuses", method: .POST(payload), headers: [Header(name: "Idempotency-Key", value: base64Data)])
     }
-
+    
     public static func getSpecificStatus(id: String) -> Request<Status> {
         return Request(path: "/api/v1/statuses/\(id)", method: .GET(.EMPTY))
     }
@@ -123,5 +123,9 @@ public enum StatusesEndpoint {
     
     public static func getFavouritedByAccounts(withId id: String) -> Request<[Account]> {
         return Request(path: "/api/v1/statuses/\(id)/favourited_by", method: .GET(.EMPTY))
+    }
+    
+    public static func favouriteStatus(id: String) -> Request<Status> {
+        return Request(path: "/api/v1/statuses/\(id)/favourite", method: .POST(.EMPTY))
     }
 }
