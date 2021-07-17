@@ -48,7 +48,7 @@ public struct Trunk {
             //                completion(.failure(ClientError.invalidModel))
             //                return
             //            }
-            print(httpResponse.headers)
+            print(httpResponse.allHeaderFields)
             let str = String(data: data, encoding: .utf8)
             print(str!)
             let result = try! JSONDecoder().decode(Model.self, from: data)

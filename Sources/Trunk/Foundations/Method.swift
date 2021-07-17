@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 public enum Method {
     case GET(Payload)
