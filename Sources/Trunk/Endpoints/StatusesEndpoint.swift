@@ -149,4 +149,12 @@ public enum StatusesEndpoint {
     public static func unbookmarkStatus(id: String) -> Request<Status> {
         return Request(path: "/api/v1/statuses/\(id)/unbookmark", method: .POST(.EMPTY))
     }
+    
+    public static func muteConversation(id: String) -> Request<Status> {
+        return Request(path: "/api/v1/statuses/\(id)/unmute", method: .POST(.EMPTY))
+    }
+    
+    public static func unmuteConversation(id: String) -> Request<Status> {
+        return Request(path: "/api/v1/statuses/\(id)/unmute", method: .POST(.EMPTY))
+    }
 }
