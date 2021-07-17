@@ -14,11 +14,11 @@ public enum FollowRequestsEndpoint {
         return Request(path: "/api/v1/follow_requests", method: .GET(.PARAMETERS(parameters)))
     }
     
-    public static func acceptFollow(id: Int) -> Request<Relationship> {
+    public static func acceptFollow(id: String) -> Request<Relationship> {
         return Request(path: "/api/v1/follow_requests/\(id)/authorize", method: .POST(.EMPTY))
     }
     
-    public static func rejectFollow(id: Int) -> Request<Relationship> {
+    public static func rejectFollow(id: String) -> Request<Relationship> {
         return Request(path: "/api/v1/follow_requests/\(id)/reject", method: .POST(.EMPTY))
     }
 }

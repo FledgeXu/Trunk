@@ -12,7 +12,7 @@ public enum FiltersEndpoint {
         return Request(path: "/api/v1/filters", method: .GET(.EMPTY))
     }
     
-    public static func getFilter(withId id: Int) -> Request<Filter> {
+    public static func getFilter(withId id: String) -> Request<Filter> {
         return Request(path: "/api/v1/filters/\(id)", method: .GET(.EMPTY))
     }
     
@@ -33,7 +33,7 @@ public enum FiltersEndpoint {
         return Request(path: "/api/v1/filters", method: .POST(.PARAMETERS(parameters)))
     }
     
-    public static func updateFilter(id: Int,
+    public static func updateFilter(id: String,
                                     phrase: String,
                                     context: [FilterContextType],
                                     irreversible: Bool? = nil,
@@ -51,7 +51,7 @@ public enum FiltersEndpoint {
         return Request(path: "/api/v1/filters/\(id)", method: .PUT(.PARAMETERS(parameters)))
     }
     
-    public static func removeFilter(id: Int) -> Request<Empty> {
+    public static func removeFilter(id: String) -> Request<Empty> {
         return Request(path: "/api/v1/filters/\(id)", method: .DELETE(.EMPTY))
     }
 }

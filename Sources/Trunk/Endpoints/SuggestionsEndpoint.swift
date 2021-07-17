@@ -14,7 +14,7 @@ public enum SuggestionsEndpoint {
         return Request(path: "/api/v1/suggestions", method: .GET(.PARAMETERS(parameters)))
     }
     
-    public static func removeSuggestion(id: Int) -> Request<Empty> {
+    public static func removeSuggestion(id: String) -> Request<Empty> {
         return Request(path: "/api/v1/suggestions/\(id)", method: .DELETE(.EMPTY))
     }
 }

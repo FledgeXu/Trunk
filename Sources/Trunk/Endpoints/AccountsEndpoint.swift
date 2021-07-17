@@ -65,15 +65,15 @@ public enum AccountsEndpoint {
         return Request(path: "/api/v1/accounts/update_credentials", method: .PATCH(.MEDIA(parameters, dataParameters)))
     }
     
-    public static func retrieveInformation(id: Int) -> Request<Account> {
+    public static func retrieveInformation(id: String) -> Request<Account> {
         return Request(path: "/api/v1/accounts/\(id)")
     }
     
-    public static func getStatuses(id: Int) -> Request<[Status]> {
+    public static func getStatuses(id: String) -> Request<[Status]> {
         return Request(path: "/api/v1/accounts/\(id)/statuses")
     }
     
-    public static func getFollowers(id: Int, maxId: String? = nil, sinceId: String? = nil, limit: Int? = nil) -> Request<[Account]> {
+    public static func getFollowers(id: String, maxId: String? = nil, sinceId: String? = nil, limit: Int? = nil) -> Request<[Account]> {
         let toLimitBounds = between(1, and: 80, default: 40)
         let parameters = [
             Parameter(key: "max_id", value: maxId),
@@ -83,7 +83,7 @@ public enum AccountsEndpoint {
         return Request(path: "/api/v1/accounts/\(id)/followers", method: .GET(.PARAMETERS(parameters)))
     }
     
-    public static func getFollowing(id: Int, maxId: String? = nil, sinceId: String? = nil, limit: Int? = nil) -> Request<[Account]> {
+    public static func getFollowing(id: String, maxId: String? = nil, sinceId: String? = nil, limit: Int? = nil) -> Request<[Account]> {
         let toLimitBounds = between(1, and: 80, default: 40)
         let parameters = [
             Parameter(key: "max_id", value: maxId),
@@ -93,19 +93,19 @@ public enum AccountsEndpoint {
         return Request(path: "/api/v1/accounts/\(id)/following", method: .GET(.PARAMETERS(parameters)))
     }
     
-    public static func getFeaturedTags(id: Int) -> Request<[FeaturedTag]> {
+    public static func getFeaturedTags(id: String) -> Request<[FeaturedTag]> {
         return Request(path: "/api/v1/accounts/\(id)/featured_tags")
     }
     
-    public static func getLists(containsWithAccountId id: Int) -> Request<[List]> {
+    public static func getLists(containsWithAccountId id: String) -> Request<[List]> {
         return Request(path: "/api/v1/accounts/\(id)/lists")
     }
     
-    public static func getIdentityProofs(id: Int) -> Request<[IdentityProof]> {
+    public static func getIdentityProofs(id: String) -> Request<[IdentityProof]> {
         return Request(path: "/api/v1/accounts/\(id)/identity_proofs")
     }
     
-    public static func follow(id: Int, reblogs: Bool? = nil, notify: Bool? = nil) -> Request<Relationship> {
+    public static func follow(id: String, reblogs: Bool? = nil, notify: Bool? = nil) -> Request<Relationship> {
         let parameters = [
             Parameter(key: "reblogs", value: reblogs.flatMap(trueOrNil)),
             Parameter(key: "notify", value: notify.flatMap(trueOrNil))
@@ -113,19 +113,19 @@ public enum AccountsEndpoint {
         return Request(path: "/api/v1/accounts/\(id)/follow", method: .POST(.PARAMETERS(parameters)))
     }
     
-    public static func unfollow(id: Int) -> Request<Relationship> {
+    public static func unfollow(id: String) -> Request<Relationship> {
         return Request(path: "/api/v1/accounts/\(id)/unfollow", method: .POST(.EMPTY))
     }
     
-    public static func block(id: Int) -> Request<Relationship> {
+    public static func block(id: String) -> Request<Relationship> {
         return Request(path: "/api/v1/accounts/\(id)/block", method: .POST(.EMPTY))
     }
     
-    public static func unblock(id: Int) -> Request<Relationship> {
+    public static func unblock(id: String) -> Request<Relationship> {
         return Request(path: "/api/v1/accounts/\(id)/unblock", method: .POST(.EMPTY))
     }
     
-    public static func mute(id: Int, notifications: Bool? = nil, duration: Int? = nil) -> Request<Relationship> {
+    public static func mute(id: String, notifications: Bool? = nil, duration: Int? = nil) -> Request<Relationship> {
         let parameters = [
             Parameter(key: "notifications", value: notifications.flatMap(trueOrNil)),
             Parameter(key: "duration", value: duration.flatMap(toOptionalString))
@@ -133,19 +133,19 @@ public enum AccountsEndpoint {
         return Request(path: "/api/v1/accounts/\(id)/mute", method: .POST(.PARAMETERS(parameters)))
     }
     
-    public static func unmute(id: Int) -> Request<Relationship> {
+    public static func unmute(id: String) -> Request<Relationship> {
         return Request(path: "/api/v1/accounts/\(id)/unmute", method: .POST(.EMPTY))
     }
     
-    public static func featureOnProfile(withId id: Int) -> Request<Relationship> {
+    public static func featureOnProfile(withId id: String) -> Request<Relationship> {
         return Request(path: "/api/v1/accounts/\(id)/pin", method: .POST(.EMPTY))
     }
     
-    public static func unfeatureOnProfile(withId id: Int) -> Request<Relationship> {
+    public static func unfeatureOnProfile(withId id: String) -> Request<Relationship> {
         return Request(path: "/api/v1/accounts/\(id)/unpin", method: .POST(.EMPTY))
     }
     
-    public static func setUserNote(id: Int, comment: String? = nil) -> Request<Relationship> {
+    public static func setUserNote(id: String, comment: String? = nil) -> Request<Relationship> {
         let parameters = [
             Parameter(key: "comment", value: comment)
         ]
