@@ -21,4 +21,8 @@ public enum ConversationsEndpoint {
         ]
         return Request(path: "/api/v1/conversations", method: .GET(.PARAMETERS(parameters)))
     }
+    
+    public static func deleteConversations(id: String) -> Request<Empty> {
+        return Request(path: "/api/v1/conversations/\(id)", method: .DELETE(.EMPTY))
+    }
 }
