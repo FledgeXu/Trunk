@@ -69,7 +69,7 @@ public enum StatusesEndpoint {
         return Request(path: "/api/v1/statuses", method: .POST(payload), headers: [Header(name: "Idempotency-Key", value: base64Data)])
     }
     
-    public static func publishschedulededStatus(status: String,
+    public static func publishSchedulededStatus(status: String,
                                                 scheduledAt: Date,
                                                 mediaIds: [String]? = nil,
                                                 pollOptions: [String]? = nil,
