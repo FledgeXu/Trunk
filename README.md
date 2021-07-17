@@ -1,3 +1,4 @@
 # Trunk
 
-A description of this package.
+A simple Swift Mastodon SDK.
+WIP.
