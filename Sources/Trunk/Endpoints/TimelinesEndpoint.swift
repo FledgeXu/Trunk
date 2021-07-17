@@ -29,12 +29,12 @@ public enum TimelinesEndpoint {
     }
     
     public static func getHashtagTimeline(hashtag: String,
-                                local: Bool? = nil,
-                                onlyMedia: Bool? = nil,
-                                maxID: String? = nil,
-                                sinceID: String? = nil,
-                                minID: String? = nil,
-                                limit: Int? = nil) -> Request<[Status]> {
+                                          local: Bool? = nil,
+                                          onlyMedia: Bool? = nil,
+                                          maxID: String? = nil,
+                                          sinceID: String? = nil,
+                                          minID: String? = nil,
+                                          limit: Int? = nil) -> Request<[Status]> {
         let toLimitBounds = between(1, and: 40, default: 20)
         let parameters = [
             Parameter(key: "local", value: local.flatMap(trueOrNil)),
@@ -48,10 +48,10 @@ public enum TimelinesEndpoint {
     }
     
     public static func homeTimeline(local: Bool? = nil,
-                                maxID: String? = nil,
-                                sinceID: String? = nil,
-                                minID: String? = nil,
-                                limit: Int? = nil) -> Request<[Status]> {
+                                    maxID: String? = nil,
+                                    sinceID: String? = nil,
+                                    minID: String? = nil,
+                                    limit: Int? = nil) -> Request<[Status]> {
         let toLimitBounds = between(1, and: 40, default: 20)
         let parameters = [
             Parameter(key: "local", value: local.flatMap(trueOrNil)),
@@ -61,5 +61,20 @@ public enum TimelinesEndpoint {
             Parameter(key: "limit", value: limit.map(toLimitBounds).flatMap(toOptionalString))
         ]
         return Request(path: "/api/v1/timelines/home", method: .GET(.PARAMETERS(parameters)))
+    }
+    
+    public static func listTimeline(id: String,
+                                    maxID: String? = nil,
+                                    sinceID: String? = nil,
+                                    minID: String? = nil,
+                                    limit: Int? = nil) -> Request<[Status]> {
+        let toLimitBounds = between(1, and: 40, default: 20)
+        let parameters = [
+            Parameter(key: "max_id", value: maxID),
+            Parameter(key: "since_id", value: sinceID),
+            Parameter(key: "min_id", value: minID),
+            Parameter(key: "limit", value: limit.map(toLimitBounds).flatMap(toOptionalString))
+        ]
+        return Request(path: "/api/v1/timelines/list/\(id)", method: .GET(.PARAMETERS(parameters)))
     }
 }
