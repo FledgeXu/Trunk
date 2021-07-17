@@ -116,4 +116,8 @@ public enum StatusesEndpoint {
     public static func getParentAndChildStatuses(id: String) -> Request<Context> {
         return Request(path: "/api/v1/statuses/\(id)/context", method: .GET(.EMPTY))
     }
+    
+    public static func getBoostedByAccounts(withId id: String) -> Request<[Account]> {
+        return Request(path: "/api/v1/statuses/\(id)/reblogged_by", method: .GET(.EMPTY))
+    }
 }
