@@ -26,4 +26,9 @@ public enum NotificationsEndpoint {
             parameters.append(Parameter(key: "exclude_types[]", value: notificationType.rawValue))
         })
         return Request(path: "/api/v1/notifications", method: .GET(.PARAMETERS(parameters)))
-    }}
+    }
+    
+    public static func getSingleNotification(id: String) -> Request<Notification> {
+        return Request(path: "/api/v1/notifications/\(id)", method: .GET(.EMPTY))
+    }
+}
