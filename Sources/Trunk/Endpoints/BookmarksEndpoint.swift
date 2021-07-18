@@ -8,7 +8,16 @@
 import Foundation
 
 public enum BookmarksEndpoint {
-    public static func getBookmarkedStatuses(limit: Int? = nil,
+    
+    /// Statuses the user has bookmarked.
+    /// Endpoint: `/api/v1/bookmarks`
+    /// - Parameters:
+    ///   - limit:
+    ///   - maxId:
+    ///   - sinceId:
+    ///   - minId:
+    /// - Returns: Array of Status
+    public static func bookmarkedStatuses(limit: Int? = nil,
                                              maxId: String? = nil,
                                              sinceId: String? = nil,
                                              minId: String? = nil) -> Request<[Status]> {
