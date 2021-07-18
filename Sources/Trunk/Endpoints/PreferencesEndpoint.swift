@@ -8,7 +8,11 @@
 import Foundation
 
 public enum PreferencesEndpoint {
-    public static func getPreferences() -> Request<Preferences> {
+    
+    /// Preferences defined by the user in their account settings.
+    /// Endpoint: `/api/v1/preferences`
+    /// - Returns: Preferences by key and value
+    public static func viewUserPreferences() -> Request<Preferences> {
         return Request(path: "/api/v1/preferences", method: .GET(.EMPTY))
     }
 }
