@@ -23,4 +23,14 @@ public enum ListsEndpoint {
         ]
         return Request(path: "/api/v1/lists", method: .POST(.PARAMETERS(parameters)))
     }
+    
+    public static func updateList(id: String,
+                                  title: String,
+                                  repliesPolicy: RepliesPolicyType? = nil) -> Request<List> {
+        let parameters = [
+            Parameter(key: "title", value: title),
+            Parameter(key: "replies_policy", value: repliesPolicy?.rawValue)
+        ]
+        return Request(path: "/api/v1/lists/\(id)", method: .PUT(.PARAMETERS(parameters)))
+    }
 }
