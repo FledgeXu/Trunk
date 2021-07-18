@@ -4,9 +4,9 @@ A simple Swift Mastodon SDK.
 
 # Supported API List
 
-- [x] apps
+- [x] apps(Authorizing user needs the Webview.)
 - [x] oauth
-- [x] accounts
+- [x] accounts(Don't support for registering yet.)
 - [x] bookmarks
 - [x] favourites
 - [x] mutes
