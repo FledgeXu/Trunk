@@ -37,4 +37,9 @@ public enum ListsEndpoint {
     public static func deleteList(id: String) -> Request<Empty> {
         return Request(path: "/api/v1/lists/\(id)", method: .DELETE(.EMPTY))
     }
+    
+    public static func getAccountsInList(id: String) -> Request<[Account]> {
+        return Request(path: "/api/v1/lists/\(id)/accounts", method: .GET(.EMPTY))
+    }
+
 }
