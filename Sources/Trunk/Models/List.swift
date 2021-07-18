@@ -14,20 +14,11 @@ public class List: Codable {
     /// The user-defined title of the list.
     public let title: String
     /// The user-defined title of the list.
-    public let repliesPolicy: repliesPolicyType?
+    public let repliesPolicy: RepliesPolicyType?
     
     private enum CodingKeys: String, CodingKey {
         case id
         case title
         case repliesPolicy = "replies_policy"
-    }
-    
-    public enum repliesPolicyType: String, Codable {
-        /// Show replies to any followed user
-        case followed
-        /// Show replies to members of the list
-        case list
-        /// Show replies to no one
-        case none
     }
 }
