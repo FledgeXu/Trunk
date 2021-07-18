@@ -21,24 +21,7 @@ public class Notification: Codable {
     
     // Optional attributes
     /// Status that was the object of the notification, e.g. in mentions, reblogs, favourites, or polls.
-    public let status: Status
-    
-    public enum NotificationType: String, Codable {
-        /// Someone followed you
-        case follow
-        /// Someone requested to follow you
-        case follow_request
-        /// Someone mentioned you in their status
-        case mention
-        /// Someone boosted one of your statuses
-        case reblog
-        /// Someone favourited one of your statuses
-        case favourite
-        /// A poll you have voted in or created has ended
-        case poll
-        /// Someone you enabled notifications for has posted a status
-        case status
-    }
+    public let status: Status?
     
     private enum CodingKeys: String, CodingKey {
         case id
