@@ -10,52 +10,46 @@ public struct Trunk {
         self.accessToken = accessToken
         self.session = session
     }
-    public func run<Model: Codable>(request: Request<Model>, completion: @escaping (Model) -> Void) {
+    public func run<Model: Codable>(request: Request<Model>, completion: @escaping (_ result: Result<Model, TrunkError>, _ headers: [AnyHashable : Any]?) -> Void) {
         guard
             let components = URLComponents(baseURL: instanceURL, request: request),
             let url = components.url
         else {
-            //                completion(.failure(ClientError.malformedURL))
+            completion(.failure(.urlError), nil)
             return
         }
         let urlReuqest = URLRequest(url: url, request: request, accessToken: accessToken)
         let task = session.dataTask(with: urlReuqest) { data, response, error in
-            if error != nil {
-                //                completion(.failure(error))
+            if let taskError = error {
+                completion(.failure(.dataTaskError(taskError)), nil)
                 return
             }
-            
             guard let data = data else {
-                //                completion(.failure(ClientError.malformedJSON))
+                completion(.failure(.malformedData), nil)
                 return
             }
-            
             guard
-                let httpResponse = response as? HTTPURLResponse,
-                httpResponse.statusCode == 200
-            else {
-                //                let mastodonError = try? MastodonError.decode(data: data)
-                //                let error: ClientError = mastodonError.map { .mastodonError($0.description) } ?? .genericError
-                //                completion(.failure(error))
                 let httpResponse = response as? HTTPURLResponse
-                print(httpResponse?.statusCode)
+            else {
                 let str = String(data: data, encoding: .utf8)
-                print(str)
+                completion(.failure(.responseErrorWithoutErrorType(str)), nil)
                 return
             }
-            
-            //            guard let model = try? Model.decode(data: data) else {
-            //                completion(.failure(ClientError.invalidModel))
-            //                return
-            //            }
-            print(httpResponse.allHeaderFields)
-            let str = String(data: data, encoding: .utf8)
-            print(str!)
-            let result = try! JSONDecoder().decode(Model.self, from: data)
-            completion(result)
-            
-            
-            //            completion(.success(model, httpResponse.pagination))
+            if(200...299).contains(httpResponse.statusCode) {
+                do {
+                    let result = try JSONDecoder().decode(Model.self, from: data)
+                    completion(.success(result), httpResponse.allHeaderFields)
+                    return
+                } catch let parseError{
+                    completion(.failure(.modelParseError(parseError)), httpResponse.allHeaderFields)
+                    return
+                }
+            } else {
+                if let errorData = try? JSONDecoder().decode(Error.self, from: data) {
+                    completion(.failure(.responseErrorWithErrorType(errorData)), httpResponse.allHeaderFields)
+                    return
+                }
+            }
         }
         task.resume()
     }
