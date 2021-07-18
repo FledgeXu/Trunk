@@ -2,6 +2,23 @@
 
 A simple Swift Mastodon SDK.
 
+# Usage
+```swift
+import Trunk
+
+// init trunk instance.
+let trunk = Trunk(instanceURL: "https://mastodon.online/", accessToken: "<accessToken>")
+
+// Fire API.
+trunk.run(request: TimelinesEndpoint.publicTimeline()) { result, headers in
+    switch result {
+    case .success(let model):
+        print(model)
+    case .failure(let error):
+        print(error)
+    }
+}
+```
 # Supported API List
 
 - [x] apps(Authorizing user needs the Webview.)
