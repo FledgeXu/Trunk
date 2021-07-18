@@ -41,5 +41,11 @@ public enum ListsEndpoint {
     public static func getAccountsInList(id: String) -> Request<[Account]> {
         return Request(path: "/api/v1/lists/\(id)/accounts", method: .GET(.EMPTY))
     }
-
+    
+    public static func addAccountsToList(id: String, accountIds: [String]) -> Request<Empty> {
+        let parameters = accountIds.map { id in
+            Parameter(key: "account_ids[]", value: id)
+        }
+        return Request(path: "/api/v1/lists/\(id)/accounts", method: .POST(.PARAMETERS(parameters)))
+    }
 }
