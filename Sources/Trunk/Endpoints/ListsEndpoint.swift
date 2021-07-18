@@ -48,4 +48,11 @@ public enum ListsEndpoint {
         }
         return Request(path: "/api/v1/lists/\(id)/accounts", method: .POST(.PARAMETERS(parameters)))
     }
+    
+    public static func removeAccountsFromList(id: String, accountIds: [String]) -> Request<Empty> {
+        let parameters = accountIds.map { id in
+            Parameter(key: "account_ids[]", value: id)
+        }
+        return Request(path: "/api/v1/lists/\(id)/accounts", method: .DELETE(.PARAMETERS(parameters)))
+    }
 }
