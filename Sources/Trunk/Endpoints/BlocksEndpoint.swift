@@ -7,7 +7,14 @@
 
 import Foundation
 public enum BlocksEndpoint {
-    public static func getBlockedAccounts(limit: Int? = nil,
+    
+    /// View blocked users
+    /// - Parameters:
+    ///   - limit: Maximum number of results. Defaults to 40.
+    ///   - maxId: Internal parameter. Use HTTP Link header for pagination instead.
+    ///   - sinceId: Internal parameter. Use HTTP Link header for pagination instead.
+    /// - Returns: Array of Account
+    public static func blockedUsers(limit: Int? = nil,
                                              maxId: String? = nil,
                                              sinceId: String? = nil) -> Request<[Account]> {
         let toLimitBounds = between(1, and: 80, default: 40)
