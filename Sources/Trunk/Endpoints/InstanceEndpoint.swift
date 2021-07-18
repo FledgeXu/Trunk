@@ -15,4 +15,8 @@ public enum InstanceEndpoint {
     public static func getConnectedDomains() -> Request<[String]> {
         return Request(path: "/api/v1/instance/peers")
     }
+    
+    public static func getWeeklyActivity() -> Request<[Activity]> {
+        return Request(path: "/api/v1/instance/activity")
+    }
 }
