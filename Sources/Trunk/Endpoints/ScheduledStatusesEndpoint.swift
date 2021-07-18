@@ -8,7 +8,16 @@
 import Foundation
 
 public enum ScheduledStatusesEndpoint {
-    public static func getScheduledStatuses(limit: Int? = nil,
+    
+    /// View scheduled statuses
+    /// Endpoint: `/api/v1/scheduled_statuses`
+    /// - Parameters:
+    ///   - limit: Max number of results to return. Defaults to 20.
+    ///   - maxId: Return results older than ID
+    ///   - sinceId: Return results newer than ID
+    ///   - minId: Return results immediately newer than ID
+    /// - Returns: Array of ScheduledStatus
+    public static func viewScheduledStatuses(limit: Int? = nil,
                                         maxId: String? = nil,
                                         sinceId: String? = nil,
                                         minId: String? = nil) -> Request<[ScheduledStatus]> {
@@ -22,16 +31,30 @@ public enum ScheduledStatusesEndpoint {
         return Request(path: "/api/v1/scheduled_statuses", method: .GET(.PARAMETERS(parameters)))
     }
     
-    public static func getSpecificScheduledStatus(id: String) -> Request<ScheduledStatus> {
+    /// View a single scheduled status
+    /// Endpoint: `/api/v1/scheduled_statuses/:id`
+    /// - Parameter id: ID of the scheduled status in the database.
+    /// - Returns: ScheduledStatus
+    public static func viewSingleScheduledStatus(id: String) -> Request<ScheduledStatus> {
         return Request(path: "/api/v1/scheduled_statuses/\(id)", method: .GET(.EMPTY))
     }
     
-    public static func updateScheduledStatusTime(id: String, scheduledAt: Date) -> Request<ScheduledStatus> {
+    /// Schedule a status
+    /// Endpoint: `/api/v1/scheduled_statuses/:id`
+    /// - Parameters:
+    ///   - id: ID of the Status to be scheduled
+    ///   - scheduledAt: ISO 8601 Datetime at which the status will be published. Must be at least 5 minutes into the future.
+    /// - Returns: ScheduledStatus
+    public static func scheduleStatus(id: String, scheduledAt: Date) -> Request<ScheduledStatus> {
         let parameters = [Parameter(key: "scheduled_at", value: scheduledAt.iso8601withFractionalSeconds)]
         return Request(path: "/api/v1/scheduled_statuses/\(id)", method: .PUT(.PARAMETERS(parameters)))
     }
     
-    public static func deleteScheduledStatus(id: String) -> Request<Empty> {
+    /// Cancel a scheduled status
+    /// Endpoint: `/api/v1/scheduled_statuses/:id`
+    /// - Parameter id: ID of the scheduled status in the database.
+    /// - Returns: Empty
+    public static func cancelScheduledStatus(id: String) -> Request<Empty> {
         return Request(path: "/api/v1/scheduled_statuses/\(id)", method: .DELETE(.EMPTY))
     }
 }
