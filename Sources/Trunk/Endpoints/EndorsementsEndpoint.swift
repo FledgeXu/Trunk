@@ -8,7 +8,15 @@
 import Foundation
 
 public enum EndorsementsEndpoint {
-    public static func getCurrentlyFeaturedProfiles(limit: Int? = nil,
+    
+    /// Accounts that the user is currently featuring on their profile.
+    /// Endpoint: `/api/v1/endorsements`
+    /// - Parameters:
+    ///   - limit: Maximum number of results to return. Defaults to 40.
+    ///   - maxId: Internal parameter. Use HTTP Link header from response for pagination
+    ///   - sinceId: Internal parameter. Use HTTP Link header from response for pagination.
+    /// - Returns: Array of Account
+    public static func viewCurrentlyFeaturedProfiles(limit: Int? = nil,
                                              maxId: String? = nil,
                                              sinceId: String? = nil) -> Request<[Account]> {
         let toLimitBounds = between(1, and: 80, default: 40)
