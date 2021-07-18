@@ -32,6 +32,7 @@ public enum AppsEndpoint {
     
     
     /// Confirm that the app's OAuth2 credentials work.
+    /// Endpoint: `/api/v1/apps/verify_credentials`
     /// - Returns: Application
     public static func verifyAppWorks() -> Request<Application> {
         return Request(path: "/api/v1/apps/verify_credentials", method: .GET(.EMPTY))
