@@ -32,6 +32,10 @@ public enum NotificationsEndpoint {
         return Request(path: "/api/v1/notifications/\(id)", method: .GET(.EMPTY))
     }
     
+    public static func dismissAllNotifications() -> Request<Empty> {
+        return Request(path: "/api/v1/notifications/clear", method: .POST(.EMPTY))
+    }
+    
     public static func dismissSingleNotification(id: String) -> Request<Empty> {
         return Request(path: "/api/v1/notifications/\(id)/dismiss", method: .POST(.EMPTY))
     }
