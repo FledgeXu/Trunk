@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SearchEndpoint.swift
 //  
 //
 //  Created by Fledge Shiu on 2021/7/18.
@@ -8,7 +8,22 @@
 import Foundation
 
 public enum SearchEndpoint {
-    public static func search(keyword q: String,
+    
+    /// Search results
+    /// Endpoint: `/api/v2/search`
+    /// - Parameters:
+    ///   - q: The search query
+    ///   - accountId: If provided, statuses returned will be authored only by this account
+    ///   - maxId: Return results older than this id
+    ///   - minId: Return results immediately newer than this id
+    ///   - type: Enum(accounts, hashtags, statuses)
+    ///   - excludeUnreviewed: Filter out unreviewed tags? Defaults to false. Use true when trying to find trending tags.
+    ///   - resolve: Attempt WebFinger lookup. Defaults to false.
+    ///   - limit: Maximum number of results to load, per type. Defaults to 20. Max 40.
+    ///   - offset: Offset in search results. Used for pagination. Defaults to 0.
+    ///   - following: Only include accounts that the user is following. Defaults to false.
+    /// - Returns: Results
+    public static func searchResults(keyword q: String,
                               accountId: String? = nil,
                               maxId: String? = nil,
                               minId: String? = nil,
