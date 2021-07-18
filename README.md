@@ -6,7 +6,7 @@ A simple Swift Mastodon SDK.
 
 - [x] apps(Authorizing user needs the Webview.)
 - [x] oauth
-- [x] accounts(Don't support for registering yet.)
+- [x] accounts(Doesn't support for registering yet.)
 - [x] bookmarks
 - [x] favourites
 - [x] mutes
