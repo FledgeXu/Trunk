@@ -6,7 +6,7 @@ A simple Swift Mastodon SDK.
 ```swift
 import Trunk
 
-// init trunk instance.
+// Initialized trunk instance.
 let trunk = Trunk(instanceURL: "https://mastodon.online/", accessToken: "<accessToken>")
 
 // Fire API.
