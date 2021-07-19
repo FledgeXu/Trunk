@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 public struct Trunk {
     let instanceURL: String
@@ -16,56 +17,28 @@ public struct Trunk {
         self.session = session
     }
     
-    /// Run Commands
-    /// - Parameters:
-    ///   - request: Endpoint API
-    ///   - completion: Hanlde the result.
-    public func run<Model: Codable>(request: Request<Model>, completion: @escaping (_ result: Result<Model, TrunkError>, _ headers: [AnyHashable : Any]?) -> Void) {
+    
+    /// Runn Task
+    /// - Parameter request: API Endpoint
+    /// - Throws: URLError
+    /// - Returns: Publisher.
+    public func run<Model: Codable>(request: Request<Model>) throws -> AnyPublisher<Model, Swift.Error> {
         guard
             let components = URLComponents(baseURL: instanceURL, request: request),
             let url = components.url
         else {
-            // Make Sure URL is right.
-            completion(.failure(.urlError), nil)
-            return
+            throw URLError(.badURL)
         }
         let urlReuqest = URLRequest(url: url, request: request, accessToken: accessToken)
-        let task = session.dataTask(with: urlReuqest) { data, response, error in
-            if let taskError = error {
-                completion(.failure(.dataTaskError(taskError)), nil)
-                return
-            }
-            
-            guard let data = data else {
-                completion(.failure(.malformedData), nil)
-                return
-            }
-            
-            guard
-                let httpResponse = response as? HTTPURLResponse
-            else {
-                let str = String(data: data, encoding: .utf8)
-                completion(.failure(.responseErrorWithoutErrorType(str)), nil)
-                return
-            }
-            
-            if(200...299).contains(httpResponse.statusCode) {
-                do {
-                    let result = try JSONDecoder().decode(Model.self, from: data)
-                    completion(.success(result), httpResponse.allHeaderFields)
-                    return
-                } catch let parseError{
-                    completion(.failure(.modelParseError(parseError)), httpResponse.allHeaderFields)
-                    return
+        return session.dataTaskPublisher(for: urlReuqest)
+            .tryMap({ data, response in
+                guard let httpResponse = response as? HTTPURLResponse,
+                      (200...299).contains(httpResponse.statusCode) else {
+                    throw URLError(.badServerResponse)
                 }
-            } else {
-                if let errorData = try? JSONDecoder().decode(Error.self, from: data) {
-                    completion(.failure(.responseErrorWithErrorType(errorData)), httpResponse.allHeaderFields)
-                    return
-                }
-            }
-        }
-        
-        task.resume()
+                return data
+            })
+            .decode(type: Model.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
     }
 }
