@@ -10,14 +10,15 @@ import Trunk
 let trunk = Trunk(instanceURL: "https://mastodon.online/", accessToken: "<accessToken>")
 
 // Fire API.
-trunk.run(request: TimelinesEndpoint.publicTimeline()) { result, headers in
-    switch result {
-    case .success(let model):
-        print(model)
-    case .failure(let error):
-        print(error)
+var cacellables = Set<AnyCancellable>()
+let publisher = try? trunk.run(request: TimelinesEndpoint.publicTimeline())
+publisher?
+    .sink(receiveCompletion: { error in  print(error)}) { value in
+        value.forEach { status in
+            print(status)
+        }
     }
-}
+    .store(in: &cacellables)
 ```
 # Supported API List
 
