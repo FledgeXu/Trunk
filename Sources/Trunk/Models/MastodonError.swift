@@ -8,7 +8,7 @@
 import Foundation
 
 /// Represents an error message.
-public class Error: Codable {
+public class MastodonError: Codable {
     // Required attributes
     /// The error message.
     public let error: String

@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+//import AppKit
 
 public struct Trunk {
     let instanceURL: String
@@ -41,4 +42,27 @@ public struct Trunk {
             .decode(type: Model.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }
+
+    
+    /// Async version of Runn Task
+    /// - Parameter request: API Endpoint
+    /// - Throws: URLError
+    /// - Returns: Model and URLResponse
+    public func asyncRun<Model: Codable>(request: Request<Model>) async throws -> (Model, URLResponse) {
+        guard
+            let components = URLComponents(baseURL: instanceURL, request: request),
+            let url = components.url
+        else {
+            throw URLError(.badURL)
+        }
+        let urlReuqest = URLRequest(url: url, request: request, accessToken: accessToken)
+        let (data, response) = try await session.data(for: urlReuqest, delegate: nil)
+        guard let httpResponse = response as? HTTPURLResponse,
+              (200...299).contains(httpResponse.statusCode) else {
+            throw URLError(.badServerResponse)
+        }
+        let result = try JSONDecoder().decode(Model.self, from: data)
+        return (result, response)
+    }
+    
 }

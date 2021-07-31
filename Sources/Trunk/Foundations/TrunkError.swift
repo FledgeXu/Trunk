@@ -11,7 +11,7 @@ public enum TrunkError: Swift.Error {
     case urlError
     case dataTaskError(Swift.Error)
     case malformedData
-    case responseErrorWithErrorType(Error)
+    case responseErrorWithErrorType(MastodonError)
     case responseErrorWithoutErrorType(String?)
     case modelParseError(Swift.Error)
 }
